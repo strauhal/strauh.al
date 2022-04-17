@@ -1,0 +1,19 @@
+body {
+	background-color: #000;
+}
+
+h2 {
+	text-align: center;
+	font-size: 10vw;
+	color: #fff;
+	font-family: monospace;
+	font-weight: 100;
+}
+
+a:hover {
+	background-color: #fff;
+}
+
+a:visited {
+	color: #fff;
+}
