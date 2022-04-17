@@ -4,6 +4,10 @@ body {
 
 }
 
+img {
+	width: 90vw;
+}
+
 p {
 	color: #fff;
 	font-weight: 100;
