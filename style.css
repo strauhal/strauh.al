@@ -11,24 +11,27 @@ img {
 p {
 	color: #fff;
 	font-weight: 100;
-	font-size: 3vw;
-	margin: 10vw 10vw 10vw 10vw;
+	font-size: 14pt;
+	margin-left: 15vw;
+	margin-right: 25vw;
 }
 
 h2 {
-	text-align: center;
-	font-size: 7vw;
+	/*text-align: center;*/
+	font-size: 24pt;
 	color: #fff;
 	font-family: monospace;
 	font-weight: 100;
+	margin-left: 5vw;
 }
 
 h3 {
-	text-align: center;
-	font-size: 5vw;
+	/*text-align: center;*/
+	font-size: 24pt;
 	color: #fff;
 	font-family: monospace;
 	font-weight: 100;
+	margin-left: 5vw;
 }
 
 a:hover {
