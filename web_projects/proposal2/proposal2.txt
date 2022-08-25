@@ -1,0 +1,7 @@
+Project Proposal:
+
+The mid 2000s aesthetic will take a backseat to the content (which will be single player flash games of course). All the games will either be laid out in either a thumbnail layout mode, or a coverflow visual (iOS 6 allusion). When clicked on, I want either an expansion of the thumbnail with a detailed description to pop up, or video/gif of the gameplay to be shown.
+
+Maybe a deeper, more personal message would be how much of one's childhood would be lost when spending so much time on flash game websites and how lonely it really is when playing games online.
+
+graphs, progressing as i go, showing how much time I've wasted
