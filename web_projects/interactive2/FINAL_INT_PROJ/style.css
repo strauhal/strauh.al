@@ -1,0 +1,177 @@
+body{
+  margin: 0;
+  background-color: #F8F8F8;
+
+}
+
+#set-height {
+  display: block;
+}
+#v0 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.parallax {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  margin-top: 10vh;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-position: 50% 50%;
+  animation-name: comedown;
+  animation-duration: 2s;
+  animation-timing-function: ease-in-out;
+}
+
+#title {
+  animation: colorchange 6s infinite alternate;
+}
+h1 {
+  position: absolute;
+  top: 30px;
+  left: 100px;
+  z-index: 900;
+
+  color: #000;
+  font-family: big caslon;
+  /*font-style: italic;*/
+  font-size: 58px;
+}
+ 
+p{
+  font-family: helvetica neue;
+  font-weight: medium;
+  color: #ccc;
+  position: absolute;
+  font-size: 18px;
+  margin-top: 50vw;
+  margin-left: 30vw;
+  margin-right: 30vw;
+  padding-bottom: 15vh;
+}
+
+a {
+
+  font-weight: medium;
+  
+  color: black;
+  text-decoration: none;
+  transition-duration: 0.4s;
+}
+
+a:hover {
+  opacity: 0.7;
+  transition-duration: 0.4s;
+
+
+
+}
+
+.left img{
+  position: fixed;
+  width: 15%;
+  top: 60vh;
+  left: 3vw;
+  z-index: 100;
+
+}
+
+.right img{
+  position: fixed;
+  width: 15%;
+  top: 60vh;
+  right: 3vw;
+  z-index: 100;
+
+}
+
+img {
+  transition-duration: 0.2s;
+
+}
+
+#menu img{
+  position: absolute;
+  z-index: 200;
+  top: -160px;
+  right: 200px;
+  width: 300px;
+  font-family: helvetica neue;
+}
+
+#home {
+  z-index: 200;
+  position: absolute;
+  top: 149px;
+  right: 455px;
+  font-size: 32px;
+  font-family: helvetica neue;
+
+}
+
+#about {
+  z-index: 200;
+  position: absolute;
+  top: 181px;
+  right: 165px;
+  font-size: 32px;
+  font-family: helvetica neue;
+  
+
+}
+
+#home a{
+  color: #f7ce00;
+}
+
+#about a {
+  color: #004292;
+}
+
+#works a{
+  color: #c8131f;
+}
+
+#works {
+  z-index: 200;
+  position: absolute;
+  top: 234px;
+  right: 290px;
+  font-size: 32px;
+font-family: helvetica neue;
+
+}
+
+  @keyframes colorchange {
+      0% {
+        
+        color: #f7ce00;
+      }
+      
+      50% {
+        
+        color: #c8131f;
+      }
+      
+      100% {
+        
+        color: #004292;
+      }
+    }
+
+
+img:hover {
+  opacity: 75%;
+  transition-duration: 0.2s;
+
+}
+
+
+@keyframes comedown {
+  0%   {opacity: 0; top:-200px;}
+  100% {opacity: 1; top:0px;}
+}

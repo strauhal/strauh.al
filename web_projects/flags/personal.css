@@ -1,0 +1,249 @@
+
+/* reset styles */
+* {
+        margin: 0px; padding: 0px;
+}
+
+/* make the background of the page black */
+body {
+        background: black;
+}
+
+
+
+
+/* flag canvas */
+#canvas {
+        width: 500px;
+        height: 300px;
+        position: relative;
+        background: white;
+}
+
+/* #eye {
+  position: absolute;
+
+  top: 0px;
+  left: 100px;
+  max-width: 300px;
+  max-height: 300px;
+} */
+
+
+
+
+
+/* reset styles */
+* {
+        margin: 0px; padding: 0px;
+}
+
+/* make the background of the page black */
+body {
+        background: black;
+}
+
+img {
+    animation: changeColor 2s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate-reverse;
+  }
+
+  @-webkit-keyframes changeColor {
+      0%   { -webkit-filter: hue-rotate(0deg)contrast(100%)saturate(0%); }
+      50%  { -webkit-filter: hue-rotate(360deg)contrast(500%)saturate(10000%); }
+      100% { -webkit-filter: hue-rotate(0deg)contrast(100%)saturate(0%); }
+    }
+  @-moz-keyframes changeColor {
+      0%   { -moz-filter: hue-rotate(0deg)contrast(100%)saturate(0%); }
+      50%  { -moz-filter: hue-rotate(360deg)contrast(500%)saturate(10000%); }
+      100% { -moz-filter: hue-rotate(0deg)contrast(100%)saturate(0%); }
+    }
+  @-o-keyframes changeColor {
+      0%   { -o-filter: hue-rotate(0deg)contrast(100%)saturate(0%); }
+      50%  { -o-filter: hue-rotate(360deg)contrast(500%)saturate(10000%); }
+      100% { -o-filter: hue-rotate(0deg)contrast(100%)saturate(0%); }
+    }
+  @keyframes changeColor {
+      0%   { filter: hue-rotate(0deg)contrast(100%)saturate(0%); }
+      50%  { filter: hue-rotate(360deg)contrast(500%)saturate(10000%); }
+      100% { filter: hue-rotate(0deg)contrast(100%)saturate(0%); }
+width: 100%;
+margin: 0;
+}
+
+/* img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 120px;
+    height: 120px;
+    margin:-60px 0 0 -60px;
+    -webkit-animation:spin 4s linear infinite;
+    -moz-animation:spin 4s linear infinite;
+    animation:spin 4s linear infinite; */
+}
+@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+
+.animation-rotate {
+  -webkit-animation-name: rotate; /* Safari 4.0 - 8.0 */
+  -webkit-animation-duration: .8s; /* Safari 4.0 - 8.0 */
+  -webkit-animation-iteration-count: infinite; /* Safari 4.0 - 8.0 */
+  -webkit-animation-direction: alternate; /* Safari 4.0 - 8.0 */
+  -webkit-animation-timing-function: ease-in-out;
+  animation-name: rotate;
+  animation-duration: .8s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-timing-function: ease-in-out;
+}
+
+/* flag canvas */
+#canvas {
+        width: 500px;
+        height: 300px;
+        position: relative;
+        background: white;
+}
+
+
+.bear {
+position: absolute;
+top: 30px;
+left: 130px;
+width: 250px;
+
+  }
+
+  .bear1 {
+  position: absolute;
+  top: 80px;
+  left: 80px;
+  width: 170px;
+
+    }
+
+    .bear2 {
+    position: absolute;
+    top: 80px;
+    left: 290px;
+    width: 90px;
+
+    animation: pulse 5s infinite;
+
+      }
+
+  .dog {
+    position: absolute;
+    top:200px;
+    left:400px;
+    width: 100px;
+  }
+
+
+
+
+      .hover-scale {
+  transition: 1s transform;
+}
+.hover-scale:hover {
+  transform: scale(10);
+}
+
+
+
+
+.grass {
+  position:absolute;
+  top: 150px;
+  left: 100px;
+  max-width: 60%;
+
+
+}
+
+.pulse {
+    animation-name: pulse_animation;
+    animation-duration: 0.5s;
+    transform-origin:150% 150%;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+@keyframes pulse_animation {
+    0% { transform: scale(1); }
+    30% { transform: scale(1); }
+    40% { transform: scale(1.08); }
+    50% { transform: scale(1); }
+    60% { transform: scale(1); }
+    70% { transform: scale(1.05); }
+    80% { transform: scale(1); }
+    100% { transform: scale(1); }
+}
+
+
+#star {
+  position: absolute;
+  font-size: 60px;
+  color: #B71234;
+  top: 40px;
+  left: 50px;
+  width: 170px;
+  height: 170px;
+
+  -webkit-animation:spin 1s linear infinite;
+  -moz-animation:spin 1s linear infinite;
+  animation:spin 1s linear infinite;
+}
+
+#text {
+  position:absolute;
+font-family: Helvetica Neue;
+  top: 190px;
+  left: 70px;
+  color:  #584528;
+
+  -moz-transform:translateX(100%);
+ -webkit-transform:translateX(100%);
+ transform:translateX(100%);
+ /* Apply animation to this element */
+ -moz-animation: example1 15s linear infinite;
+ -webkit-animation: example1 15s linear infinite;
+ animation: example1 5s linear infinite;
+}
+/* Move it (define the animation) */
+@-moz-keyframes example1 {
+ 0%   { -moz-transform: translateX(100%); }
+ 100% { -moz-transform: translateX(-100%); }
+}
+@-webkit-keyframes example1 {
+ 0%   { -webkit-transform: translateX(100%); }
+ 100% { -webkit-transform: translateX(-100%); }
+}
+@keyframes example1 {
+ 0%   {
+ -moz-transform: translateX(100%); /* Firefox bug fix */
+ -webkit-transform: translateX(100%); /* Firefox bug fix */
+ transform: translateX(100%);
+ }
+ 100% {
+ -moz-transform: translateX(-100%); /* Firefox bug fix */
+ -webkit-transform: translateX(-100%); /* Firefox bug fix */
+ transform: translateX(-100%);
+ }
+}
+
+
+#square {
+        width: 500px;
+        height: 60px;
+        background: #B71234;
+
+
+        /* position the circle in the center of the flag */
+        position: absolute;
+        top: 240px;
+        left: 0px;
+}

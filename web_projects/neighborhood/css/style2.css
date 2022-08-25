@@ -1,0 +1,44 @@
+h1 {
+  background-color: black;
+}
+
+div {
+  background-color: black;
+}
+
+a {
+  color: #f00;
+
+}
+
+h1 {
+  margin-left: 100px;
+
+  color: #fff;
+}
+
+p {
+  background-color: white;
+}
+
+img{
+  max-width: 100%;
+  max-height: 100%;
+}
+
+h2 {
+  margin-left: 100px;
+  color: #fff;
+  background-color: #000;
+}
+
+p {
+  color: #000;
+}
+
+li {
+  font-style: oblique
+  color: white;
+  margin-left: 100px;
+  margin-right: 100px;
+}

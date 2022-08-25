@@ -1,0 +1,70 @@
+h1 {
+	font-family: big caslon;
+	font-size: 64px;
+}
+
+h2 {
+	font-family: big caslon;
+	font-size: 32px;
+}
+
+p {
+	font-family: helvetica neue;
+}
+
+a {
+	font-family: helvetica neue;
+	text-decoration: none;
+	color: black;
+	font-size: 24px;
+
+}
+
+a:hover {
+	background-color: black;
+	color: white;
+	text-decoration: underline;
+}
+
+img {
+	width: 40vw;
+}
+
+
+
+#menu {
+	
+	width: 60vw;
+	top: -150px;
+	right: 15vw
+
+}
+
+svg {
+top: -150px;
+	right: 15vw
+	
+}
+
+#about {
+	position: absolute;
+	top: 80vw;
+	right: 20vw;
+
+}
+
+#works {
+	position: absolute;
+	top: 50vw;
+	right: 60vw;
+
+
+}
+
+#home {
+	position: absolute;
+	top: 10vw;
+	right: 50vw;
+
+
+}

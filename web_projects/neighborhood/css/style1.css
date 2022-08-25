@@ -1,0 +1,148 @@
+
+    body,
+    img {
+  width: 100%;
+  margin: 0;
+}
+body {
+  color: #fff;
+  font-family: 'Work Sans', sans-serif;
+  font-size: 14px;
+  background-color: #000;
+  overflow-x: hidden;
+}
+
+p {
+  color: #fff;
+  margin-left: 50px;
+  margin-right: 50px;
+}
+
+a {
+  color: #fff;
+
+
+}
+
+a:hover {
+color: #fff;
+background-color: #ccc;
+text-decoration:
+}
+
+ul {
+  text-align: center;
+ font-size: 48px;
+  list-style-type:none;
+  font-style: oblique;
+  /* margin-left: 100px;
+  margin-right: 100px; */
+}
+
+img {
+  position: relative;
+  display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
+}
+
+.image2 {
+  position: relative;
+  margin-top: 50px;
+  display: block;
+  left: -30%;
+  top: 0%;
+    margin-left: auto;
+    margin-right: auto;
+    width: 30%;
+}
+.image3 {
+  position: relative;
+  display: block;
+  left: 0%;
+  top: -100px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 30%;
+}
+.image4 {
+  position: relative;
+  display: block;
+  left: 30%;
+  top: -200px;
+margin-bottom: -170px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 30%;
+}
+
+.xbox {
+  position: absolute;
+  margin-top: -80%;
+  margin-left: 10%;
+}
+
+
+h1 {
+  font-family: 'Work Sans', sans-serif;
+  font-size: 72px;
+  color: #fff;
+  letter-spacing: -0.5px;
+  line-height: 85%;
+  font-weight: bold;
+  margin-left: 25px;
+  margin-right: 50px;
+}
+
+h2 {
+  font-family: 'Work Sans', sans-serif;
+  font-size: 36px;
+  text-align: center;
+  line-height: 100%;
+  /* margin-left: 100px;
+  margin-right: 100px; */
+}
+
+.mobile {
+  display: block;
+  margin: 0 auto;
+}
+
+.desktop {
+  display: none;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.image__background {
+  background-size: cover;
+  background-repeat: repeat;
+  width: 100%;
+  left: 0px;
+  top: 0px;
+  z-index: -1;
+}
+
+.desktop > a {
+  display: inline-block;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.desktop > .image__background {
+  width: 100%;
+}
+
+.mobile > .image__background {
+  width: 100%;
+}
+
+@media screen and (min-width: 630px) {
+  .mobile {
+    display: none;
+  }
+  .desktop {
+    display: block;
+  }
+}

@@ -1,0 +1,53 @@
+
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+body {
+  background: black;
+  background-image: url("https://media0.giphy.com/media/SasDDqOSRclNu/giphy.gif");
+  background-repeat: no-repeat, repeat;
+  background-position: center;
+  font-size: 125px;
+  font-family: Helvetica Neue;
+}
+p {
+  line-height: normal;
+}
+#question{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  line-height: 10px;
+  color: white;
+  width: 100vw;
+  height: 100vh;
+}
+#answer {
+  display: none;
+}
+/* hidden message */
+@media (max-width: 550px) {
+  body {
+   background: #FF6347;
+   background-image: url("https://media1.giphy.com/media/dKZRRvQhrT2HS/source.gif");
+   background-size: 300px;
+   background-repeat: repeat;
+  }
+
+  #answer {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    color: black;
+    width: 100vw;
+    height: 100vh;
+
+  }
+  #question {
+    display: none;
+  }
+}

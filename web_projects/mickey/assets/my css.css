@@ -1,0 +1,124 @@
+
+    /* reset styles */
+    * { margin: 0px; padding: 0px; }
+
+    /* make the background of the page black */
+    body { background: black;}
+
+    /* mickey canvas */
+      #canvas {
+      width: 400px;
+      height: 600px;
+      position: relative;
+      background: white;
+    }
+
+    /* shapes */
+    /* make all divs inside of #canvas a circle */
+    #canvas div {
+      border-radius: 200px;
+      position: relative;
+    }
+
+    /*
+    adjust the top and left
+    properties of the elements
+    to position them
+    */
+
+    #ear-1 {
+      width: 100px;
+      height: 100px;
+      background: black;
+
+      top: 10px;
+      left: 100px;
+    }
+
+    #ear-2 {
+      width: 100px;
+      height: 100px;
+      background: black;
+      top: 0px;
+      left: 30px;
+    }
+
+    #head {
+      width: 140px;
+      height: 140px;
+      background: beige;
+      top: -100px;
+      left: 130px;
+    }
+
+    #eye-1 {
+      width: 25px;
+      height: 25px;
+      background: black;
+      top: -210px;
+      left: 200px;
+    }
+
+    #eye-2 {
+      width: 25px;
+      height: 25px;
+      background: black;
+      top: -235px;
+      left: 235px;
+    }
+
+    #nose {
+      width: 45px;
+      height: 45px;
+      background: black;
+      top: -250px;
+      left: 280px;
+    }
+
+    #mouth {
+      width: 35px;
+      height: 35px;
+      background: red;
+      top: -230px;
+      left: 185px;
+    }
+
+    #body {
+      width: 160px;
+      height: 160px;
+      background: red;
+      top: -220px;
+      left: 170px;
+    }
+
+    #button-1 {
+      width: 32px;
+      height: 32px;
+      background: black;
+      top: -320px;
+      left: 240px;
+    }
+
+    #button-2 {
+      width: 32px;
+      height: 32px;
+      background: black;
+      top: -380px;
+      left: 280px;
+    }
+
+    #foot-1 {
+      width: 150px;
+      height: 150px;
+      background: yellow;
+      top: -320px;
+      left: 10px;
+    }
+
+    #foot-2 {
+      width: 150px;
+      height: 150px;
+      background: yellow;
+      top: -410px;
+      left: 240px;
+    }

@@ -1,0 +1,31 @@
+make mobile imitations more realistic
+
+stylize string arrangements
+(maybe the hangy things have stress)
+
+About page feels more computery/circuity instead of organic/caldery
+
+navigation might crowd artwork on art page 
+(make captions a little less large & "samey")
+
+More levels of text hierarchy
+
+HANG YOUR QUOTES
+
+Build 3 separate webpages to switch pages seamlessly using jquery
+
+OR 
+
+build all as one page
+
+build most of motion in css 
+
+think about type relation to big line
+
+bring finesse of big type to small type
+
+nail the airiness and think about SPACE
+
+eliminate some content on homepage 
+
+make sure that this airiness doesn’t make it seem unstable

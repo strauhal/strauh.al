@@ -1,0 +1,536 @@
+:root {
+  --fontHeight: 200px;
+  --color: url(https://www.designcuts.com/wp-content/uploads/2018/10/Iridescent-Abstract-Backgrounds-strip2.jpg);
+  /* --color: white; */
+  --negativeColor: black;
+  --alternateColor:transparent;
+  --baseKern: 50px;
+  --stemWidth: 20px;
+  filter: brightness(150%);
+
+}
+
+body {
+  background-image: url();
+}
+
+
+.fontBox {
+  background: var(--negativeColor);
+  height: 1000px;
+  width: 100%;
+  padding: 0px;
+  padding-top: 40px;
+
+  overflow:hidden;
+
+}
+
+a {
+ color:red;
+}
+
+/* define some letter parts */
+
+.stem {
+  background: var(--color);
+  width:var(--stemWidth);
+  height: var(--fontHeight);
+}
+/*
+.leftLeaning {
+  transform:rotate(-20deg)
+} */
+
+.rightLeaning {
+  transform:rotate(20deg)
+}
+
+/* .crossBar {
+  background: var(--color);
+  height: var(--stemWidth);
+} */
+
+.counter {
+  transform-origin: center;
+  background: var(--negativeColor);
+}
+
+
+/* setup so our letters to have equal spacing */
+.rootLetter {
+  float:left;
+  position:relative;
+  padding-right:var(--baseKern);
+}
+
+.letter {
+  height:calc(var(--fontHeight) + 20px);
+}
+
+.letter * {
+  position:absolute;
+  /*border: 1px solid yellow;*/
+}
+
+/* positioning parts of letters */
+
+/* A */
+.a {
+  /* left: 20px; */
+  width:140px;
+  z-index: 20;
+}
+.a>.one {
+  left:70px;
+}
+.a>.two {
+  left:110px;
+}
+.a>.three {
+  left: 40px;
+  top: 110px;
+  width: 80px;
+}
+.a>.four {
+  top:-8px;
+  width:170px;
+}
+.a>.five {
+  bottom:14px;
+  width:170px;
+}
+.a>.counter {
+  height: 20px;
+  background: var(--negativeColor);
+}
+
+/* B */
+
+.b {
+  width:130px;
+  left: 0px;
+  z-index: 10;
+}
+
+.b>.stem {
+  top: 12px;
+  height: 175px;
+  width: 20px;
+  left: 0px;
+}
+
+.b>.top {
+  height: 60px;
+  width: 60px;
+  left: 20px;
+  top: 12px;
+  background: var(--color);
+
+  border-radius: 60px 60px 60px 60px;
+}
+
+.b>.two {
+  height: 120px;
+  width: 120px;
+  top: 70px;
+  left: 20px;
+  background: var(--color);
+
+  border-radius: 120px 120px 120px 120px;
+}
+
+.b>.counter.three {
+  height: 25px;
+  width: 25px;
+  left: 37px;
+  top: 30px;
+  border-radius: 60px 60px 60px 60px;
+}
+
+.b>.counter.four {
+  height: 80px;
+  width: 80px;
+  left: 40px;
+  top: 90px;
+  border-radius: 120px 120px 120px 120px;
+}
+
+/* C */
+
+.c {
+  width: 40px;
+  left: 0px;
+  z-index: 5;
+}
+
+.c>.circle {
+  width: 180px;
+  height: 180px;
+  top: 10px;
+  border-radius: 100px;
+  background: var(--color);
+}
+
+.c>.counter.two {
+  width: 140px;
+  height: 140px;
+  border-radius: 100px;
+  top: 30px;
+  left: 20px;
+}
+
+.c>.counter.three {
+  height: 180px;
+  background: var(--negativeColor);
+  width: 90px;
+  left: 90px;
+  top: 10px;
+}
+
+
+/* D */
+
+.d {
+  width: 150px;
+  left: 0px;
+  z-index: 20;
+}
+
+.d>.circle {
+  width: 180px;
+  height: 180px;
+  top: 10px;
+  border-radius: 100px;
+  background: var(--color);
+}
+
+.d>.counter.two {
+  width: 140px;
+  height: 140px;
+  border-radius: 100px;
+  top: 30px;
+  left: 20px;
+}
+
+.d>.stem {
+  height: 180px;
+  /* background: var(--negativeColor); */
+  width: 20px;
+  left: 70px;
+  top: 10px;
+  z-index: 1;
+}
+
+.d>.counter.three {
+  width: 70px;
+  height: 180px;
+z-index: 0;
+  top: 10px;
+  left: 0px;
+}
+
+
+/* E */
+
+.e {
+  width: 60px;
+  left: 40px;
+}
+
+.e>.stem {
+  top: 12px;
+  height: 175px;
+  width: 20px;
+  left: 0px;
+  z-index: 10;
+}
+
+.e>.top {
+  height: 20px;
+  width: 60px;
+  left: 20px;
+  top: 12px;
+  background: var(--color);
+
+}
+
+.e>.middle {
+  height: 20px;
+  width: 60px;
+  left: 20px;
+  top: 80px;
+  background: var(--color);
+}
+
+.e>.bottom {
+  height: 20px;
+  width: 60px;
+  left: 20px;
+  top: 167px;
+  background: var(--color);
+}
+
+/* F */
+
+.f {
+  width: 130px;
+  z-index: 2;
+  left: 80px;
+}
+
+.f>.stem {
+  top: 12px;
+  height: 175px;
+  width: 20px;
+  left: 0px;
+  z-index: 10;
+}
+
+
+
+.f>.top {
+  height: 20px;
+  width: 60px;
+  left: 20px;
+  top: 12px;
+  z-index: 2;
+  background: var(--color);
+}
+
+.f:hover .middle{
+	pointer-events: none;
+
+}
+
+.f>.middle {
+  height: 20px;
+  width: 60px;
+  left: 20px;
+  top: 80px;
+  background: var(--color);
+}
+
+/* .f>.counter{
+  width: 140px;
+  height: 140px;
+background: var(--alternateColor);
+  top: 100px;
+  left: 20px;
+  z-index: 3;
+} */
+
+.f>.counter2{
+  width: 140px;
+  height: 62px;
+background: var(--negativeColor);
+  top: -50px;
+  left: 0px;
+  z-index: 3;
+}
+
+/* G */
+
+.g {
+  width: 170px;
+  left: 40px;
+  z-index: 5;
+}
+
+.g>.circle {
+  width: 180px;
+  height: 180px;
+  top: 10px;
+  border-radius: 100px;
+  background: var(--color);
+}
+
+.g>.counter.two {
+  width: 140px;
+  height: 140px;
+  border-radius: 100px;
+  background: var(--negativeColor);
+  top: 30px;
+  left: 20px;
+}
+
+.g>.counter.three {
+  height: 90px;
+  background: var(--negativeColor);
+  width: 90px;
+  left: 90px;
+  top: 10px;
+}
+
+.g>.middle {
+
+    height: 20px;
+    width: 90px;
+    left: 90px;
+    top: 90px;
+    background: var(--color);
+  }
+
+  /* H */
+
+  .h {
+    width: 80px;
+    z-index: 20;
+    left: 40px;
+  }
+
+  .h>.stem {
+    top: 12px;
+    height: 175px;
+    width: 20px;
+    left: 0px;
+    z-index: 10;
+  }
+
+  .h>.middle {
+    height: 20px;
+    width: 60px;
+    left: 20px;
+    top: 80px;
+    background: white;
+  }
+
+  .h:hover .middle{
+  	pointer-events: none;
+
+  }
+
+  .h>.stem2 {
+    top: 12px;
+    height: 175px;
+    width: 20px;
+    left: 80px;
+    z-index: 10;
+  }
+
+/* change our stroke width when a letter is hovered */
+
+
+.letter * {
+  transition: all 300ms ease;
+
+
+
+}
+
+.letter:hover {
+  animation: changeColor 2s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate-reverse;
+  transform: rotateY(180deg);
+}
+
+
+@keyframes changeColor {
+    0%   { filter: hue-rotate(0deg)contrast(100%)saturate(100%); }
+    50%  { filter: hue-rotate(360deg)contrast(200%)saturate(400%); }
+    100% { filter: hue-rotate(0deg)contrast(100%)saturate(100%); }
+}
+
+
+.a:hover {
+  --stemWidth: 40px;
+  transform: matrix(1, -0.3, 0, 1, 0, 0);
+transition-duration: 0.5s;
+
+}
+
+.b:hover .counter {
+  transform: scale(0);
+}
+
+.b:hover .stem {
+  transform: scaleX(2);
+}
+
+.b:hover {
+transform: matrix(1, -0.3, 0, 1, 0, 0);
+transition-duration: 0.5s;
+}
+
+.c:hover .counter.two {
+    transform: scale(0);
+}
+
+.c:hover {
+  transform: matrix(1, -0.3, 0, 1, 0, 0);
+transition-duration: 0.5s;
+}
+
+.d:hover .stem {
+  transform: scaleX(2);
+
+}
+
+.d:hover .counter.two {
+    transform: scale(0);
+}
+
+.d:hover {
+  transform: matrix(1, -0.3, 0, 1, 0, 0);
+transition-duration: 0.5s;
+}
+
+.e:hover .stem {
+  transform: scaleX(2);
+
+}
+
+.e:hover .middle {
+  transform: scaleY(7.7);
+}
+
+.e:hover .bottom {
+	pointer-events: none;
+
+}
+
+.e:hover {
+  transform: matrix(1, -0.3, 0, 1, 0, 0);
+transition-duration: 0.5s;
+  transition-duration: 0.5s;
+}
+
+.f:hover .stem {
+  transform: scaleX(2);
+}
+
+.f:hover .top {
+  transform: scaleY(6);
+}
+
+.f:hover .counter2 {
+	pointer-events: none;
+
+}
+
+.f:hover {
+  transform: matrix(1, -0.3, 0, 1, 0, 0);
+transition-duration: 0.5s;
+  transition-duration: 0.5s;
+}
+
+.g:hover {
+  transform: matrix(1, -0.3, 0, 1, 0, 0);
+transition-duration: 0.5s;
+  transition-duration: 0.5s;
+}
+
+.g:hover .counter.two {
+transform: scale(0);
+}
+
+/* .g:hover .middle {
+  transform: scaleX(2);
+} */
+
+.h:hover .stem {
+  transform: matrix(1, -0.3, 0, 1, 0, 0);
+transition-duration: 0.5s;
+  transition-duration: 0.5s;
+}

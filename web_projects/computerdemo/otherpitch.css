@@ -1,0 +1,46 @@
+body {
+  background-color: black;
+}
+
+
+.img {
+  max-width: 100%;
+}
+
+#container {
+  display: inline-block;
+}
+
+
+#beach {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  max-width: 100%;
+}
+
+#screen {
+  max-width: 10px;
+  position: absolute;
+  left: 200px;
+  pointer-events:none
+}
+
+p {
+  color: white;
+}
+
+.content {
+  position: absolute;
+  z-index: -1;
+  left: 295px;
+  top: 130px;
+}
+
+#freerider {
+    position: absolute;
+    z-index: -1;
+    left: 295px;
+    top: 152px;
+  }
+}

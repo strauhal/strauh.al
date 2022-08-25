@@ -1,0 +1,220 @@
+/* CSS files add styling rules to your content */
+
+body {
+  font-family: "Benton Sans", "Helvetica Neue", helvetica, arial, sans-serif;
+  margin: 2em;
+  background: #eee;
+}
+
+.group {
+  display: inline-block;
+  margin: 40px;
+}
+
+.title {
+  margin-bottom: 24px;
+}
+
+.circle {
+  width: 160px;
+  height: 160px;
+  background-color: white;
+  border-radius: 80px;
+  transition: .2s opacity;
+}
+
+.square {
+  width: 160px;
+  height: 160px;
+  background: white;
+}
+
+.rounded-rect {
+  width: 160px;
+  height: 160px;
+  background: green;
+  border-radius: 20px;
+}
+
+.rectangle {
+  width: 160px;
+  height: 100px;
+  background: blue;
+}
+
+#small-circle {
+  width: 160px;
+  height: 160px;
+  border-radius: 80px;
+  background: pink;
+}
+
+.animation-blink {
+  -webkit-animation-name: blink; /* Safari 4.0 - 8.0 */
+  -webkit-animation-duration: .6s; /* Safari 4.0 - 8.0 */
+  -webkit-animation-iteration-count: infinite; /* Safari 4.0 - 8.0 */
+  -webkit-animation-direction: alternate; /* Safari 4.0 - 8.0 */
+  animation-name: blink;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+   animation-direction: alternate;
+}
+
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes blink {
+  from { background-color: red; }
+  to { background-color: yellow; }
+}
+
+/* Standard syntax */
+@keyframes blink {
+  from { background-color: red; }
+  to { background-color: yellow; }
+}
+
+
+.animation-pulse {
+  -webkit-animation-name: pulse; /* Safari 4.0 - 8.0 */
+  -webkit-animation-duration: .8s; /* Safari 4.0 - 8.0 */
+  -webkit-animation-iteration-count: infinite; /* Safari 4.0 - 8.0 */
+  -webkit-animation-direction: alternate; /* Safari 4.0 - 8.0 */
+  -webkit-animation-timing-function: ease-in-out;
+  animation-name: pulse;
+  animation-duration: .8s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-timing-function: ease-in-out;
+}
+
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes pulse {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.15); }
+}
+
+/* Standard syntax */
+@keyframes pulse {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.15); }
+}
+
+.animation-rotate {
+  -webkit-animation-name: rotate; /* Safari 4.0 - 8.0 */
+  -webkit-animation-duration: .8s; /* Safari 4.0 - 8.0 */
+  -webkit-animation-iteration-count: infinite; /* Safari 4.0 - 8.0 */
+  -webkit-animation-direction: alternate; /* Safari 4.0 - 8.0 */
+  -webkit-animation-timing-function: ease-in-out;
+  animation-name: rotate;
+  animation-duration: .8s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-timing-function: ease-in-out;
+}
+
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes rotate {
+  0% { transform: rotate(0); }
+  100% { transform: rotate(180deg); }
+}
+
+/* Standard syntax */
+@keyframes rotate {
+  0% { transform: rotate(0); }
+  100% { transform: rotate(180deg); }
+}
+
+
+.animation-translate {
+  -webkit-animation-name: translate; /* Safari 4.0 - 8.0 */
+  -webkit-animation-duration: 1.6s; /* Safari 4.0 - 8.0 */
+  -webkit-animation-iteration-count: infinite; /* Safari 4.0 - 8.0 */
+  -webkit-animation-timing-function: linear;
+  animation-name: translate;
+  animation-duration: 1.6s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes translate {
+  0% { transform: translate(0px, 0px); }
+  25% { transform: translate(0px, 60px); }
+  50% { transform: translate(60px, 60px); }
+  75% { transform: translate(60px, 0px); }
+  100% { transform: translate(0px, 0px); }
+}
+
+/* Standard syntax */
+@keyframes translate {
+  0% { transform: translate(0px, 0px); }
+  25% { transform: translate(0px, 60px); }
+  50% { transform: translate(60px, 60px); }
+  75% { transform: translate(60px, 0px); }
+  100% { transform: translate(0px, 0px); }
+}
+
+.animation-blink-pulse {
+  -webkit-animation-name: blink-pulse; /* Safari 4.0 - 8.0 */
+  -webkit-animation-duration: .8s; /* Safari 4.0 - 8.0 */
+  -webkit-animation-iteration-count: infinite; /* Safari 4.0 - 8.0 */
+  -webkit-animation-direction: alternate; /* Safari 4.0 - 8.0 */
+  -webkit-animation-timing-function: ease-in-out;
+  animation-name: blink-pulse;
+  animation-duration: .8s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-timing-function: ease-in-out;
+}
+
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes blink-pulse {
+  0% {
+    transform: scale(1);
+    background-color: red;
+  }
+  100% {
+    transform: scale(1.15);
+    background-color: yellow;
+  }
+}
+
+/* Standard syntax */
+@keyframes blink-pulse {
+  0% {
+    transform: scale(1);
+    background-color: red;
+  }
+  100% {
+    transform: scale(1.15);
+    background-color: yellow;
+  }
+}
+
+.animation-rotate-translate {
+  -webkit-animation-name: rotate-translate; /* Safari 4.0 - 8.0 */
+  -webkit-animation-duration: 1.6s; /* Safari 4.0 - 8.0 */
+  -webkit-animation-iteration-count: infinite; /* Safari 4.0 - 8.0 */
+  -webkit-animation-timing-function: linear;
+  animation-name: rotate-translate;
+  animation-duration: 1.6s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes rotate-translate {
+  0% { transform: translate(0px, 0px) rotate(0); }
+  25% { transform: translate(0px, 60px); }
+  50% { transform: translate(60px, 60px); }
+  75% { transform: translate(60px, 0px); }
+  100% { transform: translate(0px, 0px) rotate(180deg); }
+}
+
+/* Standard syntax */
+@keyframes rotate-translate {
+  0% { transform: translate(0px, 0px) rotate(0); }
+  25% { transform: translate(0px, 60px) rotate(45deg); }
+  50% { transform: translate(60px, 60px) rotate(90deg); }
+  75% { transform: translate(60px, 0px) rotate(135deg); }
+  100% { transform: translate(0px, 0px) rotate(180deg); }
+}

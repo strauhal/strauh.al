@@ -1,0 +1,71 @@
+
+/* reset styles */
+* {
+        margin: 0px; padding: 0px;
+}
+
+/* make the background of the page black */
+body {
+        background: black;
+}
+
+img {
+width: 100%;
+margin: 0;
+}
+
+/* flag canvas */
+#canvas {
+        width: 500px;
+        height: 300px;
+        position: relative;
+        background: white;
+}
+
+
+.bear {
+position: absolute;
+top: 75px;
+left: 150px;
+width: 190px;
+
+  }
+
+#grass {
+  position:absolute;
+  top: 150px;
+  left: 100px;
+  max-width: 60%;
+
+
+}
+
+#star {
+  position: absolute;
+  font-size: 60px;
+  color: #B71234;
+  top: 40px;
+  left: 50px;
+  width: 170px;
+  height: 170px;
+}
+
+#text {
+  position:absolute;
+font-family: Helvetica Neue;
+  top: 190px;
+  left: 70px;
+  color:  #584528;
+}
+
+#square {
+        width: 500px;
+        height: 60px;
+        background: #B71234;
+
+
+        /* position the circle in the center of the flag */
+        position: absolute;
+        top: 240px;
+        left: 0px;
+}
