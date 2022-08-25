@@ -1,0 +1,15 @@
+body {
+	background-image: url(https://i.ibb.co/xhMHfq9/colorbg1-53.png);
+
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center center center center;
+	background-attachment: fixed;
+
+}
+
+img {
+	max-width: 100%;
+	margin-top: 800px;
+	margin-bottom: 800px;
+}

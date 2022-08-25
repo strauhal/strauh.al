@@ -1,0 +1,95 @@
+
+body {
+  background: #fff;
+  margin-left: 100px;
+  margin-right: 100px;
+  margin-top: 75px;
+
+}
+
+
+
+
+a:hover {
+color: #fff;
+background-color: #f00;
+
+}
+
+p {
+  color: #111;
+  background-color: #fff;
+  z-index: 300;
+
+/* this is just some font style crap */
+
+}
+img {
+  margin-top: 35vh;
+  max-width: 75%;
+  /* margin-top: -50px; */
+  min-width: 75%;
+}
+
+
+
+img {
+  animation: changeColor 5s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate-reverse;
+}
+
+@-webkit-keyframes changeColor {
+    0%   { -webkit-filter: hue-rotate(0deg)contrast(100%)saturate(0%); }
+    50%  { -webkit-filter: hue-rotate(360deg)contrast(500%)saturate(10000%); }
+    100% { -webkit-filter: hue-rotate(0deg)contrast(100%)saturate(0%); }
+  }
+@-moz-keyframes changeColor {
+    0%   { -moz-filter: hue-rotate(0deg)contrast(100%)saturate(0%); }
+    50%  { -moz-filter: hue-rotate(360deg)contrast(500%)saturate(10000%); }
+    100% { -moz-filter: hue-rotate(0deg)contrast(100%)saturate(0%); }
+  }
+@-o-keyframes changeColor {
+    0%   { -o-filter: hue-rotate(0deg)contrast(100%)saturate(0%); }
+    50%  { -o-filter: hue-rotate(360deg)contrast(500%)saturate(10000%); }
+    100% { -o-filter: hue-rotate(0deg)contrast(100%)saturate(0%); }
+  }
+@keyframes changeColor {
+    0%   { filter: hue-rotate(0deg)contrast(100%)saturate(0%); }
+    50%  { filter: hue-rotate(360deg)contrast(500%)saturate(10000%); }
+    100% { filter: hue-rotate(0deg)contrast(100%)saturate(0%); }
+}
+
+body {
+  font-family: 'Karla', sans-serif;
+  font-size: 24px;
+  letter-spacing: -0px;
+}
+
+
+a {
+  color: #000;
+  text-decoration: none;
+}
+
+li {
+  font-style: oblique;
+}
+
+
+h1 {
+  font-family: "Helvetica Neue";
+  font-size: 72px;
+  color: #000;
+  letter-spacing: -2px;
+  line-height: 90%;
+  position: fixed;
+  z-index: -300;
+
+}
+
+h2 {
+  font-family: "Big Caslon", "Book Antiqua", "Palatino Linotype", Georgia, serif;
+  font-size: 36px;
+  line-height: 95%;
+}

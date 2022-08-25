@@ -1,0 +1,32 @@
+
+.grid-item {
+  background-color: lightblue;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  grid-template-rows: 200px 300px 200px;
+  grid-gap: 20px 40px;
+}
+
+
+#item-1 {
+   background: url('https://vignette.wikia.nocookie.net/filthy-frank/images/0/04/VOMIT_CAKE/revision/latest?cb=20150715063922') center;
+   background-size: cover;
+   grid-column-start: 2;
+   grid-column-end: 4;
+   grid-row-start: 2;
+   grid-row-end: 4;
+}
+
+
+
+
+
+#item-4 {
+   background: url('https://static.tvtropes.org/pmwiki/pub/images/pink_guy_7611.png');
+   background-size: cover;
+  grid-column-start: 2;
+  grid-column-end: 4;
+}
