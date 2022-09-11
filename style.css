@@ -1,6 +1,7 @@
 body {
 	background-color: #000;
-	font-family: monospace;
+	font-family: ui-monospace;
+	font-weight: bold;
 }
 
 img {
@@ -19,7 +20,7 @@ p {
 h1 {
 	font-size: 24pt;
 	color: #fff;
-	font-family: monospace;
+	font-family: ui-monospace;
 	font-weight: 100;
 	margin-left: 0vw;
 }
@@ -28,7 +29,7 @@ h2 {
 	/*text-align: center;*/
 	font-size: 24pt;
 	color: #fff;
-	font-family: monospace;
+	font-family: ui-monospace;
 	font-weight: 100;
 	margin-left: 5vw;
 }
@@ -37,7 +38,7 @@ h3 {
 	/*text-align: center;*/
 	font-size: 24pt;
 	color: #fff;
-	font-family: monospace;
+	font-family: ui-monospace;
 	font-weight: 100;
 	margin-left: 10vw;
 }
