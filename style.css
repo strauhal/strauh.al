@@ -90,7 +90,11 @@ body {
 }
 
 img {
-	width: 90vw;
+	width: 50vw;
+}
+
+.banner img {
+	width: 75vw;
 }
 
 p {
