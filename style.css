@@ -25,6 +25,22 @@ img {
     padding-bottom: 56.25%;
 }
 
+.vimeo {
+	z-index: -9;
+	margin-top: -1330px;
+	position: fixed;
+	display: block;
+	width: 75vh;
+	margin-left: 33vw;
+	margin-right: auto;
+}
+
+iframe {
+	width: 80vw;
+	height: 80vh;
+	margin-left: 10vw;
+}
+/*
 iframe {
     position: absolute;
     margin-left: 10vw;
@@ -33,7 +49,7 @@ iframe {
     width: 75%;
     height: 75%;
 
-}
+}*/
 
 p {
 	color: #fff;
