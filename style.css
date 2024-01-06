@@ -113,6 +113,10 @@ img {
 	width: 75vw;
 }
 
+.vimeo {
+	display: none;
+}
+
 p {
 	font-size: 5vw;
 	margin-right: 0vw;
