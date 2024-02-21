@@ -2,16 +2,16 @@ from PIL import Image
 import os
 
 # Set the dimensions of each image and the grid layout
-image_width = 300  # Adjust as needed
-image_height = 300  # Adjust as needed
+image_width = 400  # Adjust as needed
+image_height = 400  # Adjust as needed
 images_per_row = 20
 images_per_column = 20
 
 # Set the folder path containing the images
-folder_path = "titles"  # Replace with the actual folder path
+folder_path = "akira"  # Replace with the actual folder path
 
-# Get the list of image files in the folder
-image_files = [file for file in os.listdir(folder_path) if file.endswith(".tif") or file.endswith(".png")]  # Add more file extensions if needed
+# Get the list of image files in the folder and sort them alphabetically
+image_files = sorted([file for file in os.listdir(folder_path) if file.endswith((".tif", ".png"))])
 
 # Calculate the total number of grid images needed
 num_images_per_grid = images_per_row * images_per_column
@@ -31,7 +31,7 @@ for grid_index in range(num_grid_images):
     end_index = min(start_index + num_images_per_grid, len(image_files))
     image_files_subset = image_files[start_index:end_index]
 
-    # Iterate over the image files subset and paste them onto the grid image
+    # Iterate over the sorted image files subset and paste them onto the grid image
     for i, image_file in enumerate(image_files_subset):
         image_path = os.path.join(folder_path, image_file)
         image = Image.open(image_path)
