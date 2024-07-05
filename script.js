@@ -9,9 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     container.style.left = '50%';
     container.style.transform = 'translate(-50%, -50%)';
     container.style.display = 'none';
-    container.style.zIndex = '-1000';
-
-
+    container.style.zIndex = '1000';  // Ensure it's on top of other elements
 
     // Create image element
     const img = document.createElement('img');
@@ -69,9 +67,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 hideImage();  // Optional: hide the hover image before following the link
             });
         } else {
-            // Prevent default action for non-image links
+            // For non-image links, allow default action
             link.addEventListener('click', (e) => {
-                e.preventDefault();
+                // Do not prevent default action, so the link works normally
             });
         }
     });
