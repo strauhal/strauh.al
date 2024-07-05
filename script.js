@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     container.style.left = '50%';
     container.style.transform = 'translate(-50%, -50%)';
     container.style.display = 'none';
-    container.style.zIndex = '1000';  // Ensure it's on top of other elements
+    container.style.zIndex = '-1000';  // Ensure it's on top of other elements
 
     // Create image element
     const img = document.createElement('img');
