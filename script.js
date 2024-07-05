@@ -9,14 +9,16 @@ document.addEventListener('DOMContentLoaded', () => {
     container.style.left = '50%';
     container.style.transform = 'translate(-50%, -50%)';
     container.style.display = 'none';
-    container.style.maxWidth = '90%';
-    container.style.maxHeight = '90%';
-    container.style.backgroundSize = 'contain';
-    container.style.backgroundRepeat = 'no-repeat';
-    container.style.backgroundPosition = 'center';
-    container.style.zIndex = '1000';
-    container.style.border = '1px solid #ccc';  // Optional: adds a border
-    container.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.2)';  // Optional: adds a shadow
+    container.style.zIndex = '-1000';
+
+
+
+    // Create image element
+    const img = document.createElement('img');
+    img.style.maxWidth = '100%';
+    img.style.maxHeight = '100%';
+    container.appendChild(img);
+
     document.body.appendChild(container);
 
     // Object to store preloaded images
@@ -33,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Function to show image
     function showImage(src) {
         console.log("Showing image:", src);
-        container.style.backgroundImage = `url(${src})`;
+        img.src = src;
         container.style.display = 'block';
     }
 
@@ -61,13 +63,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 e.preventDefault();
                 hideImage();
             });
-        }
-    });
 
-    // Also handle click events to avoid default behavior of following the link
-    document.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', (e) => {
-            e.preventDefault();  // Prevent default link action
-        });
+            // Allow clicking to load the image
+            link.addEventListener('click', (e) => {
+                hideImage();  // Optional: hide the hover image before following the link
+            });
+        } else {
+            // Prevent default action for non-image links
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+            });
+        }
     });
 });
