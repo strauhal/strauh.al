@@ -1,127 +1,63 @@
 document.addEventListener('DOMContentLoaded', () => {
-    console.log("DOM Content Loaded");
+    // Function to detect YouTube links in <p> tags and add embed links
+    function addEmbedLinks() {
+        const paragraphs = document.querySelectorAll('p');
 
-    // Create image container
-    const container = document.createElement('div');
-    container.id = 'image-container';
-    container.style.position = 'fixed';
-    container.style.top = '50%';
-    container.style.left = '50%';
-    container.style.transform = 'translate(-50%, -50%)';
-    container.style.display = 'none';
-    container.style.zIndex = '-1000';  // Ensure it's on top of other elements
+        paragraphs.forEach(p => {
+            const youtubeRegex = /(https?:\/\/www\.youtube\.com\/watch\?v=([a-zA-Z0-9_-]+))(?:&t=(\d+)s)?/g;
+            let match = youtubeRegex.exec(p.innerHTML);
 
-    // Create image element
-    const img = document.createElement('img');
-    img.style.maxWidth = '100%';
-    img.style.maxHeight = '100%';
-    container.appendChild(img);
+            if (match) {
+                const youtubeLink = match[0];
+                const videoId = match[2];
+                const startTime = match[3] ? `&start=${match[3]}` : ''; // Handle start time if present
 
-    document.body.appendChild(container);
+                // Create an <a> styled link that says [embed]
+                const embedLink = document.createElement('a');
+                embedLink.textContent = '[embed]';
+                embedLink.style.cursor = 'pointer';
+                embedLink.style.marginLeft = '5px'; // Small margin for space between the link and [embed]
+                embedLink.style.textDecoration = 'underline'; // Underlined text
 
-    // Object to store preloaded images
-    const preloadedImages = {};
+                // Create a <br> element for spacing between the video and the link
+                const spacer = document.createElement('br');
 
-    // Function to preload images
-    function preloadImage(src) {
-        if (!preloadedImages[src]) {
-            preloadedImages[src] = new Image();
-            preloadedImages[src].src = src;
-        }
-    }
+                // Embed video toggle on link click
+                let iframe = null;  // Declare iframe variable outside so it can be accessed for toggle
+                embedLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    
+                    if (!iframe) {
+                        // If iframe doesn't exist, create and append it
+                        iframe = document.createElement('iframe');
+                        iframe.width = '560';
+                        iframe.height = '315';
+                        iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1${startTime}`;
+                        iframe.frameBorder = '0';
+                        iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+                        iframe.allowFullscreen = true;
+                        iframe.style.marginLeft = '0'; // No left margin
 
-    // Function to show image
-    function showImage(src) {
-        console.log("Showing image:", src);
-        img.src = src;
-        container.style.display = 'block';
-    }
+                        // Add the spacer and iframe after the YouTube link
+                        p.appendChild(spacer);
+                        p.appendChild(iframe);
+                    } else {
+                        // If iframe exists, remove the spacer and iframe (toggle off)
+                        iframe.remove();
+                        spacer.remove();
+                        iframe = null;  // Set iframe to null for future toggling
+                    }
+                });
 
-    // Function to hide image
-    function hideImage() {
-        console.log("Hiding image");
-        container.style.display = 'none';
-    }
-
-    // Add event listeners to all links and preload images
-    function addHoverListeners() {
-        document.querySelectorAll('a').forEach(link => {
-            // Check if the link's href ends with an image extension
-            if (link.href.match(/\.(jpeg|jpg|gif|png)$/i)) {
-                // Preload the image
-                preloadImage(link.href);
-
-                // Show the image in the container on hover
-                link.addEventListener('mouseover', showImageOnHover);
-                // Hide the image when not hovering
-                link.addEventListener('mouseout', hideImageOnHover);
+                // Replace the YouTube link in the paragraph with a clickable link
+                p.innerHTML = p.innerHTML.replace(youtubeLink, `<a href="${youtubeLink}" target="_blank">${youtubeLink}</a>`);
+                
+                // Append the [embed] link next to the YouTube link
+                p.appendChild(embedLink);
             }
         });
     }
 
-    // Remove hover listeners
-    function removeHoverListeners() {
-        document.querySelectorAll('a').forEach(link => {
-            if (link.href.match(/\.(jpeg|jpg|gif|png)$/i)) {
-                link.removeEventListener('mouseover', showImageOnHover);
-                link.removeEventListener('mouseout', hideImageOnHover);
-            }
-        });
-    }
-
-    // Hover event handlers
-    function showImageOnHover(e) {
-        e.preventDefault();
-        showImage(this.href);
-    }
-
-    function hideImageOnHover(e) {
-        e.preventDefault();
-        hideImage();
-    }
-
-    // Add Intersection Observer for narrow viewports
-    function enableMobileImageDisplay() {
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting && entry.target.href.match(/\.(jpeg|jpg|gif|png)$/i)) {
-                    showImage(entry.target.href);
-                } else {
-                    hideImage();
-                }
-            });
-        });
-
-        document.querySelectorAll('a').forEach(link => {
-            if (link.href.match(/\.(jpeg|jpg|gif|png)$/i)) {
-                observer.observe(link);
-            }
-        });
-        return observer;
-    }
-
-    // Enable or disable features based on viewport width
-    let currentObserver = null;
-
-    function checkViewportWidth() {
-        const viewportWidth = window.innerWidth;
-
-        if (viewportWidth > 900) {
-            if (currentObserver) {
-                currentObserver.disconnect();
-                currentObserver = null;
-            }
-            removeHoverListeners();
-            addHoverListeners();
-        } else {
-            removeHoverListeners();
-            if (!currentObserver) {
-                currentObserver = enableMobileImageDisplay();
-            }
-        }
-    }
-
-    // Initial check and add resize event listener
-    checkViewportWidth();
-    window.addEventListener('resize', checkViewportWidth);
+    // Run the function to add embed links
+    addEmbedLinks();
 });
