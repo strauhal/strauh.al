@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
         container.style.left = '50%';
         container.style.transform = 'translate(-50%, -50%)';
         container.style.display = 'none';
-        container.style.zIndex = '0';
+        container.style.zIndex = '-10';
         container.style.pointerEvents = 'none'; // Prevent hover container from being interacted with
 
         const img = document.createElement('img');
