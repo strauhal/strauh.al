@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-
     // YouTube Embed Function
     function addEmbedLinks() {
         const paragraphs = document.querySelectorAll('p');
@@ -50,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Improved Image Hover Function
+    // Improved Image Hover Function with Fix
     function enableImageHover() {
         // Create the hover container just once
         const container = document.createElement('div');
@@ -60,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
         container.style.left = '50%';
         container.style.transform = 'translate(-50%, -50%)';
         container.style.display = 'none';
-        container.style.zIndex = '-1000';
+        container.style.zIndex = '0';
         container.style.pointerEvents = 'none'; // Prevent hover container from being interacted with
 
         const img = document.createElement('img');
@@ -71,7 +70,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Function to show image
         function showImage(src) {
-            img.src = src;
+            img.style.display = 'none'; // Hide image while it's loading
+            img.src = ''; // Clear the current image src to avoid flashing previous image
+
+            // Preload the new image before showing it
+            const newImg = new Image();
+            newImg.onload = () => {
+                img.src = src;
+                img.style.display = 'block'; // Show the image only after it's fully loaded
+            };
+            newImg.src = src;
             container.style.display = 'block';
         }
 
