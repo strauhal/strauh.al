@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Function to detect YouTube links in <p> tags and add embed links
+
+    // YouTube Embed Function
     function addEmbedLinks() {
         const paragraphs = document.querySelectorAll('p');
 
@@ -10,25 +11,21 @@ document.addEventListener('DOMContentLoaded', () => {
             if (match) {
                 const youtubeLink = match[0];
                 const videoId = match[2];
-                const startTime = match[3] ? `&start=${match[3]}` : ''; // Handle start time if present
+                const startTime = match[3] ? `&start=${match[3]}` : '';
 
-                // Create an <a> styled link that says [embed]
                 const embedLink = document.createElement('a');
                 embedLink.textContent = '[embed]';
                 embedLink.style.cursor = 'pointer';
-                embedLink.style.marginLeft = '5px'; // Small margin for space between the link and [embed]
-                embedLink.style.textDecoration = 'underline'; // Underlined text
+                embedLink.style.marginLeft = '5px';
+                embedLink.style.textDecoration = 'underline';
 
-                // Create a <br> element for spacing between the video and the link
                 const spacer = document.createElement('br');
+                let iframe = null;
 
-                // Embed video toggle on link click
-                let iframe = null;  // Declare iframe variable outside so it can be accessed for toggle
                 embedLink.addEventListener('click', (e) => {
                     e.preventDefault();
-                    
+
                     if (!iframe) {
-                        // If iframe doesn't exist, create and append it
                         iframe = document.createElement('iframe');
                         iframe.width = '560';
                         iframe.height = '315';
@@ -36,28 +33,68 @@ document.addEventListener('DOMContentLoaded', () => {
                         iframe.frameBorder = '0';
                         iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
                         iframe.allowFullscreen = true;
-                        iframe.style.marginLeft = '0'; // No left margin
+                        iframe.style.marginLeft = '0';
 
-                        // Add the spacer and iframe after the YouTube link
                         p.appendChild(spacer);
                         p.appendChild(iframe);
                     } else {
-                        // If iframe exists, remove the spacer and iframe (toggle off)
                         iframe.remove();
                         spacer.remove();
-                        iframe = null;  // Set iframe to null for future toggling
+                        iframe = null;
                     }
                 });
 
-                // Replace the YouTube link in the paragraph with a clickable link
                 p.innerHTML = p.innerHTML.replace(youtubeLink, `<a href="${youtubeLink}" target="_blank">${youtubeLink}</a>`);
-                
-                // Append the [embed] link next to the YouTube link
                 p.appendChild(embedLink);
             }
         });
     }
 
-    // Run the function to add embed links
+    // Improved Image Hover Function
+    function enableImageHover() {
+        // Create the hover container just once
+        const container = document.createElement('div');
+        container.id = 'image-container';
+        container.style.position = 'fixed';
+        container.style.top = '50%';
+        container.style.left = '50%';
+        container.style.transform = 'translate(-50%, -50%)';
+        container.style.display = 'none';
+        container.style.zIndex = '-1000';
+        container.style.pointerEvents = 'none'; // Prevent hover container from being interacted with
+
+        const img = document.createElement('img');
+        img.style.maxWidth = '100%';
+        img.style.maxHeight = '100%';
+        container.appendChild(img);
+        document.body.appendChild(container);
+
+        // Function to show image
+        function showImage(src) {
+            img.src = src;
+            container.style.display = 'block';
+        }
+
+        // Function to hide image
+        function hideImage() {
+            container.style.display = 'none';
+        }
+
+        // Attach hover event listeners to image links
+        document.querySelectorAll('a[href$=".jpg"], a[href$=".jpeg"], a[href$=".png"], a[href$=".gif"]').forEach(link => {
+            const src = link.href;
+
+            link.addEventListener('mouseover', () => {
+                showImage(src);
+            });
+
+            link.addEventListener('mouseout', () => {
+                hideImage();
+            });
+        });
+    }
+
+    // Run both functions without conflicts
     addEmbedLinks();
+    enableImageHover();
 });
