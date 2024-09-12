@@ -49,18 +49,17 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Improved Image Hover Function with Fix
-    function enableImageHover() {
-        // Create the hover container just once
+    // Desktop Hover Image Function
+    function enableDesktopHover() {
         const container = document.createElement('div');
-        container.id = 'image-container';
+        container.id = 'desktop-image-container';
         container.style.position = 'fixed';
         container.style.top = '50%';
         container.style.left = '50%';
         container.style.transform = 'translate(-50%, -50%)';
         container.style.display = 'none';
         container.style.zIndex = '-10';
-        container.style.pointerEvents = 'none'; // Prevent hover container from being interacted with
+        container.style.pointerEvents = 'none';
 
         const img = document.createElement('img');
         img.style.maxWidth = '100%';
@@ -68,27 +67,23 @@ document.addEventListener('DOMContentLoaded', () => {
         container.appendChild(img);
         document.body.appendChild(container);
 
-        // Function to show image
         function showImage(src) {
-            img.style.display = 'none'; // Hide image while it's loading
-            img.src = ''; // Clear the current image src to avoid flashing previous image
+            img.style.display = 'none';
+            img.src = '';
 
-            // Preload the new image before showing it
             const newImg = new Image();
             newImg.onload = () => {
                 img.src = src;
-                img.style.display = 'block'; // Show the image only after it's fully loaded
+                img.style.display = 'block';
             };
             newImg.src = src;
             container.style.display = 'block';
         }
 
-        // Function to hide image
         function hideImage() {
             container.style.display = 'none';
         }
 
-        // Attach hover event listeners to image links
         document.querySelectorAll('a[href$=".jpg"], a[href$=".jpeg"], a[href$=".png"], a[href$=".gif"]').forEach(link => {
             const src = link.href;
 
@@ -102,7 +97,86 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Run both functions without conflicts
+    // Mobile Scroll Image Display Function
+    function enableMobileScrollDisplay() {
+        const container = document.createElement('div');
+        container.id = 'mobile-image-container';
+        container.style.position = 'fixed';
+        container.style.top = '50%';
+        container.style.left = '50%';
+        container.style.transform = 'translate(-50%, -50%)';
+        container.style.display = 'none';
+        container.style.zIndex = '-10';
+        container.style.pointerEvents = 'none';
+
+        const img = document.createElement('img');
+        img.style.maxWidth = '100%';
+        img.style.maxHeight = '100%';
+        container.appendChild(img);
+        document.body.appendChild(container);
+
+        function showImage(src) {
+            img.src = '';
+            img.style.display = 'none';
+
+            const newImg = new Image();
+            newImg.onload = () => {
+                img.src = src;
+                img.style.display = 'block';
+            };
+            newImg.src = src;
+            container.style.display = 'block';
+        }
+
+        function hideImage() {
+            container.style.display = 'none';
+        }
+
+        // Use Intersection Observer to detect when an image link is at the center of the screen
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.5 // Image link must be at least 50% in view
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const link = entry.target;
+                    const src = link.href;
+                    showImage(src);
+                } else {
+                    hideImage();
+                }
+            });
+        }, observerOptions);
+
+        // Observe all image links
+        document.querySelectorAll('a[href$=".jpg"], a[href$=".jpeg"], a[href$=".png"], a[href$=".gif"]').forEach(link => {
+            observer.observe(link);
+        });
+    }
+
+    // Determine if on mobile or desktop
+    function isMobile() {
+        return window.innerWidth <= 900;
+    }
+
+    // Initialize appropriate image display based on screen size
+    function initImageDisplay() {
+        if (isMobile()) {
+            enableMobileScrollDisplay();
+        } else {
+            enableDesktopHover();
+        }
+    }
+
+    // Initialize functions
     addEmbedLinks();
-    enableImageHover();
+    initImageDisplay();
+
+    // Re-check on resize to switch between mobile and desktop behavior
+    window.addEventListener('resize', () => {
+        initImageDisplay();
+    });
 });
