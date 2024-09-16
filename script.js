@@ -84,7 +84,8 @@ document.addEventListener('DOMContentLoaded', () => {
             container.style.display = 'none';
         }
 
-        document.querySelectorAll('a[href$=".jpg"], a[href$=".jpeg"], a[href$=".png"], a[href$=".gif"]').forEach(link => {
+        // Update query to handle case-insensitive extensions
+        document.querySelectorAll('a[href$=".jpg"], a[href$=".jpeg"], a[href$=".png"], a[href$=".gif"], a[href$=".JPG"], a[href$=".JPEG"], a[href$=".PNG"], a[href$=".GIF"]').forEach(link => {
             const src = link.href;
 
             link.addEventListener('mouseover', () => {
@@ -152,7 +153,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }, observerOptions);
 
         // Observe all image links
-        document.querySelectorAll('a[href$=".jpg"], a[href$=".jpeg"], a[href$=".png"], a[href$=".gif"]').forEach(link => {
+        document.querySelectorAll('a[href$=".jpg"], a[href$=".jpeg"], a[href$=".png"], a[href$=".gif"], a[href$=".JPG"], a[href$=".JPEG"], a[href$=".PNG"], a[href$=".GIF"]').forEach(link => {
             observer.observe(link);
         });
     }
