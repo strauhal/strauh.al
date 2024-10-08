@@ -88,6 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('a[href$=".jpg"], a[href$=".jpeg"], a[href$=".png"], a[href$=".gif"], a[href$=".JPG"], a[href$=".JPEG"], a[href$=".PNG"], a[href$=".GIF"]').forEach(link => {
             const src = link.href;
 
+            // Enable mouseover for desktop
             link.addEventListener('mouseover', () => {
                 showImage(src);
             });
@@ -95,89 +96,32 @@ document.addEventListener('DOMContentLoaded', () => {
             link.addEventListener('mouseout', () => {
                 hideImage();
             });
-        });
-    }
 
-    // Mobile Scroll Image Display Function
-    function enableMobileScrollDisplay() {
-        const container = document.createElement('div');
-        container.id = 'mobile-image-container';
-        container.style.position = 'fixed';
-        container.style.top = '50%';
-        container.style.left = '50%';
-        container.style.transform = 'translate(-50%, -50%)';
-        container.style.display = 'none';
-        container.style.zIndex = '-10';
-        container.style.pointerEvents = 'none';
+            // Handle mobile tap interactions
+            let tapped = false;
 
-        const img = document.createElement('img');
-        img.style.maxWidth = '100%';
-        img.style.maxHeight = '100%';
-        container.appendChild(img);
-        document.body.appendChild(container);
+            link.addEventListener('touchstart', (e) => {
+                e.preventDefault();  // Prevent default tap behavior (like highlighting the link)
 
-        function showImage(src) {
-            img.src = '';
-            img.style.display = 'none';
-
-            const newImg = new Image();
-            newImg.onload = () => {
-                img.src = src;
-                img.style.display = 'block';
-            };
-            newImg.src = src;
-            container.style.display = 'block';
-        }
-
-        function hideImage() {
-            container.style.display = 'none';
-        }
-
-        // Use Intersection Observer to detect when an image link is at the center of the screen
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.5 // Image link must be at least 50% in view
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const link = entry.target;
-                    const src = link.href;
+                if (!tapped) {
+                    // First tap: show image in background
+                    tapped = true;
                     showImage(src);
+
+                    // Set timeout to reset tap after a short period
+                    setTimeout(() => {
+                        tapped = false;
+                    }, 300);  // Reset tap status after 300ms (or adjust as needed)
+
                 } else {
-                    hideImage();
+                    // Second tap: navigate to image
+                    window.location.href = src;
                 }
             });
-        }, observerOptions);
-
-        // Observe all image links
-        document.querySelectorAll('a[href$=".jpg"], a[href$=".jpeg"], a[href$=".png"], a[href$=".gif"], a[href$=".JPG"], a[href$=".JPEG"], a[href$=".PNG"], a[href$=".GIF"]').forEach(link => {
-            observer.observe(link);
         });
-    }
-
-    // Determine if on mobile or desktop
-    function isMobile() {
-        return window.innerWidth <= 900;
-    }
-
-    // Initialize appropriate image display based on screen size
-    function initImageDisplay() {
-        if (isMobile()) {
-            enableMobileScrollDisplay();
-        } else {
-            enableDesktopHover();
-        }
     }
 
     // Initialize functions
     addEmbedLinks();
-    initImageDisplay();
-
-    // Re-check on resize to switch between mobile and desktop behavior
-    window.addEventListener('resize', () => {
-        initImageDisplay();
-    });
+    enableDesktopHover();
 });
