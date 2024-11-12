@@ -88,12 +88,35 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('a[href$=".jpg"], a[href$=".jpeg"], a[href$=".png"], a[href$=".gif"], a[href$=".JPG"], a[href$=".JPEG"], a[href$=".PNG"], a[href$=".GIF"]').forEach(link => {
             const src = link.href;
 
+            // Enable mouseover for desktop
             link.addEventListener('mouseover', () => {
                 showImage(src);
             });
 
             link.addEventListener('mouseout', () => {
                 hideImage();
+            });
+
+            // Enable tap functionality for mobile
+            let tapped = false;
+
+            link.addEventListener('touchstart', (e) => {
+                e.preventDefault();  // Prevent default tap behavior (like highlighting the link)
+
+                if (!tapped) {
+                    // First tap: show image in background
+                    tapped = true;
+                    showImage(src);
+
+                    // Set timeout to reset tap after a short period
+                    setTimeout(() => {
+                        tapped = false;
+                    }, 300);  // Reset tap status after 300ms (or adjust as needed)
+
+                } else {
+                    // Second tap: navigate to image
+                    window.location.href = src;
+                }
             });
         });
     }
