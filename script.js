@@ -49,8 +49,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Desktop Hover Image Function
-    function enableDesktopHover() {
+    // Desktop Hover and Mobile Tap for Images
+    function enableImageInteraction() {
         const container = document.createElement('div');
         container.id = 'desktop-image-container';
         container.style.position = 'fixed';
@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
         container.style.left = '50%';
         container.style.transform = 'translate(-50%, -50%)';
         container.style.display = 'none';
-        container.style.zIndex = '-10';
+        container.style.zIndex = '-1'; // Ensure it's behind other content
         container.style.pointerEvents = 'none';
 
         const img = document.createElement('img');
@@ -84,44 +84,42 @@ document.addEventListener('DOMContentLoaded', () => {
             container.style.display = 'none';
         }
 
-        // Update query to handle case-insensitive extensions
+        // Track the last tapped link
+        let lastTappedLink = null;
+
+        // Adding event listeners for image links
         document.querySelectorAll('a[href$=".jpg"], a[href$=".jpeg"], a[href$=".png"], a[href$=".gif"], a[href$=".JPG"], a[href$=".JPEG"], a[href$=".PNG"], a[href$=".GIF"]').forEach(link => {
             const src = link.href;
 
-            // Enable mouseover for desktop
-            link.addEventListener('mouseover', () => {
-                showImage(src);
-            });
-
-            link.addEventListener('mouseout', () => {
-                hideImage();
-            });
+            // Enable hover functionality for desktop
+            link.addEventListener('mouseover', () => showImage(src));
+            link.addEventListener('mouseout', () => hideImage());
 
             // Enable tap functionality for mobile
-            let tapped = false;
-
             link.addEventListener('touchstart', (e) => {
-                e.preventDefault();  // Prevent default tap behavior (like highlighting the link)
+                e.preventDefault(); // Prevent default behavior like highlighting
 
-                if (!tapped) {
-                    // First tap: show image in background
-                    tapped = true;
-                    showImage(src);
-
-                    // Set timeout to reset tap after a short period
-                    setTimeout(() => {
-                        tapped = false;
-                    }, 300);  // Reset tap status after 300ms (or adjust as needed)
-
-                } else {
-                    // Second tap: navigate to image
+                if (lastTappedLink === link) {
+                    // If the same link is tapped twice, navigate to the image
                     window.location.href = src;
+                } else {
+                    // If it's a new link, set it as the last tapped and show the image
+                    lastTappedLink = link;
+                    showImage(src);
                 }
             });
+        });
+
+        // Hide the image preview when the user taps on any blank space or non-link content
+        document.body.addEventListener('touchstart', (e) => {
+            if (!e.target.closest('a')) { // Check if the clicked element is not an image link
+                hideImage();
+                lastTappedLink = null; // Reset the last tapped link
+            }
         });
     }
 
     // Initialize functions
     addEmbedLinks();
-    enableDesktopHover();
+    enableImageInteraction();
 });
