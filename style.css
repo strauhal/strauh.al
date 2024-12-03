@@ -1,21 +1,12 @@
 @font-face {
-  font-family: "Micro";
-  src: url('HelveticaNowMicro-Regular.otf');
+  font-family: "micro";
+  src: url('micro.otf');
 }
 
 body {
-	background-color: #00f;
-	font-family: micro;
-	font-weight: bold;
-}
+  background-color: #00f;
+  font-family: micro;
 
-img {
-/*	width: 25vw;
-	margin-left: 10vw;*/
-}
-
-.banner img{
-	width: 50vw;
 }
 
 .video {
@@ -52,25 +43,20 @@ p {
 h1 {
 	font-size: 24pt;
 	color: #fff;
-	font-family: micro;
 	font-weight: 100;
 	margin-left: 0vw;
 }
 
 h2 {
-	/*text-align: center;*/
 	font-size: 24pt;
 	color: #fff;
-	font-family: micro;
 	font-weight: 100;
 	margin-left: 5vw;
 }
 
 h3 {
-	/*text-align: center;*/
 	font-size: 24pt;
 	color: #fff;
-	font-family: micro;
 	font-weight: 100;
 	margin-left: 15vw;
 }
@@ -87,42 +73,52 @@ a:link {
 	color: #fff;
 }
 
-@media (max-width: 900px) {
+@keyframes changeColor {
+  0% { background-color: #00f; }
+  50% { background-color: #50f; }
+}
 
 body {
-	margin: 0px 0px 0px 0px;
-	word-wrap: break-word;
-
+  animation: changeColor 10s infinite linear;
 }
 
-img {
-	width: 50vw;
-}
 
-.banner img {
-	width: 75vw;
-}
+@media (max-width: 900px) {
 
-.vimeo {
-	display: none;
-}
 
-p {
-	font-size: 5vw;
-	margin-right: 0vw;
-}
+	body {
+		margin: 0px 0px 0px 0px;
+		word-wrap: break-word;
+	}
 
-h1 {
-	font-size: 5vw;
-}
+	img {
+		width: 50vw;
+	}
 
-h2 {
-	font-size: 5vw;
-}
+	.banner img {
+		width: 75vw;
+	}
 
-h3 {
-	font-size: 5vw;
-}
+	.vimeo {
+		display: none;
+	}
+
+	p {
+		font-size: 5vw;
+		margin-right: 0vw;
+	}
+
+	h1 {
+		font-size: 5vw;
+	}
+
+	h2 {
+		font-size: 5vw;
+	}
+
+	h3 {
+		font-size: 5vw;
+	}
 
 
 }
