@@ -76,6 +76,7 @@ a:link {
 @keyframes changeColor {
   0% { background-color: #00f; }
   50% { background-color: #50f; }
+  100% { background-color: #00f; }
 }
 
 body {
