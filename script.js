@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const startTime = match[3] ? `&start=${match[3]}` : '';
 
                 const embedLink = document.createElement('a');
-                embedLink.textContent = '[embed]';
+                embedLink.textContent = '[display]';
                 embedLink.style.cursor = 'pointer';
                 embedLink.style.marginLeft = '5px';
                 embedLink.style.textDecoration = 'underline';
