@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
         container.style.left = '50%';
         container.style.transform = 'translate(-50%, -50%)';
         container.style.display = 'none';
-        container.style.zIndex = '-1'; // Ensure it's behind other content
+        container.style.zIndex = '-1';
         container.style.pointerEvents = 'none';
 
         const img = document.createElement('img');
@@ -67,17 +67,45 @@ document.addEventListener('DOMContentLoaded', () => {
         container.appendChild(img);
         document.body.appendChild(container);
 
-        function showImage(src) {
-            img.style.display = 'none';
-            img.src = '';
+        // Simple LRU cache
+        const imageCache = new Map();
+        const MAX_CACHE_SIZE = 50;
+
+        function cacheImage(src) {
+            if (imageCache.has(src)) {
+                const cached = imageCache.get(src);
+                imageCache.delete(src);
+                imageCache.set(src, cached);
+                return cached;
+            }
 
             const newImg = new Image();
-            newImg.onload = () => {
-                img.src = src;
-                img.style.display = 'block';
-            };
             newImg.src = src;
-            container.style.display = 'block';
+
+            if (imageCache.size >= MAX_CACHE_SIZE) {
+                const oldestKey = imageCache.keys().next().value;
+                imageCache.delete(oldestKey);
+            }
+
+            imageCache.set(src, newImg);
+            return newImg;
+        }
+
+        function showImage(src) {
+            img.style.display = 'none';
+            const cached = cacheImage(src);
+
+            if (cached.complete) {
+                img.src = cached.src;
+                img.style.display = 'block';
+                container.style.display = 'block';
+            } else {
+                cached.onload = () => {
+                    img.src = cached.src;
+                    img.style.display = 'block';
+                    container.style.display = 'block';
+                };
+            }
         }
 
         function hideImage() {
@@ -87,34 +115,39 @@ document.addEventListener('DOMContentLoaded', () => {
         // Track the last tapped link
         let lastTappedLink = null;
 
-        // Adding event listeners for image links
+        // Hover debounce timeout
+        let hoverTimer = null;
+
         document.querySelectorAll('a[href$=".jpg"], a[href$=".jpeg"], a[href$=".png"], a[href$=".gif"], a[href$=".JPG"], a[href$=".JPEG"], a[href$=".PNG"], a[href$=".GIF"]').forEach(link => {
             const src = link.href;
 
-            // Enable hover functionality for desktop
-            link.addEventListener('mouseover', () => showImage(src));
-            link.addEventListener('mouseout', () => hideImage());
+            // Hover behavior for desktop
+            link.addEventListener('mouseenter', () => {
+                hoverTimer = setTimeout(() => showImage(src), 150); // 150ms debounce
+            });
 
-            // Enable tap functionality for mobile
+            link.addEventListener('mouseleave', () => {
+                clearTimeout(hoverTimer);
+                hideImage();
+            });
+
+            // Tap behavior for mobile
             link.addEventListener('touchstart', (e) => {
-                e.preventDefault(); // Prevent default behavior like highlighting
+                e.preventDefault();
 
                 if (lastTappedLink === link) {
-                    // If the same link is tapped twice, navigate to the image
                     window.location.href = src;
                 } else {
-                    // If it's a new link, set it as the last tapped and show the image
                     lastTappedLink = link;
                     showImage(src);
                 }
             });
         });
 
-        // Hide the image preview when the user taps on any blank space or non-link content
         document.body.addEventListener('touchstart', (e) => {
-            if (!e.target.closest('a')) { // Check if the clicked element is not an image link
+            if (!e.target.closest('a')) {
                 hideImage();
-                lastTappedLink = null; // Reset the last tapped link
+                lastTappedLink = null;
             }
         });
     }
