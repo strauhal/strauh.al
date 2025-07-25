@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // YouTube Embed Function
     function addEmbedLinks() {
         const paragraphs = document.querySelectorAll('p');
 
@@ -49,7 +48,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Desktop Hover and Mobile Tap for Images
     function enableImageInteraction() {
         const container = document.createElement('div');
         container.id = 'desktop-image-container';
@@ -67,7 +65,6 @@ document.addEventListener('DOMContentLoaded', () => {
         container.appendChild(img);
         document.body.appendChild(container);
 
-        // Simple LRU cache
         const imageCache = new Map();
         const MAX_CACHE_SIZE = 50;
 
@@ -112,18 +109,14 @@ document.addEventListener('DOMContentLoaded', () => {
             container.style.display = 'none';
         }
 
-        // Track the last tapped link
         let lastTappedLink = null;
-
-        // Hover debounce timeout
         let hoverTimer = null;
 
         document.querySelectorAll('a[href$=".jpg"], a[href$=".jpeg"], a[href$=".png"], a[href$=".gif"], a[href$=".JPG"], a[href$=".JPEG"], a[href$=".PNG"], a[href$=".GIF"]').forEach(link => {
             const src = link.href;
 
-            // Hover behavior for desktop
             link.addEventListener('mouseenter', () => {
-                hoverTimer = setTimeout(() => showImage(src), 150); // 150ms debounce
+                hoverTimer = setTimeout(() => showImage(src), 150);
             });
 
             link.addEventListener('mouseleave', () => {
@@ -131,16 +124,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 hideImage();
             });
 
-            // Tap behavior for mobile
             link.addEventListener('touchstart', (e) => {
                 e.preventDefault();
 
                 if (lastTappedLink === link) {
-                    window.location.href = src;
+                    openImageInWindow(src);
                 } else {
                     lastTappedLink = link;
                     showImage(src);
                 }
+            });
+
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                openImageInWindow(src);
             });
         });
 
@@ -150,9 +147,72 @@ document.addEventListener('DOMContentLoaded', () => {
                 lastTappedLink = null;
             }
         });
+
+        function openImageInWindow(src) {
+            // Open popup immediately — blank for now
+            const popup = window.open('', '_blank', 'width=200,height=200,left=10000,top=10000,resizable=no');
+
+            if (!popup) return; // Blocked
+
+            const preload = new Image();
+            preload.src = src;
+
+            preload.onload = () => {
+                let displayWidth = preload.width;
+                let displayHeight = preload.height;
+                const isPortrait = preload.height > preload.width;
+
+                if (isPortrait) {
+                    const scale = Math.min(1, 480 / preload.height);
+                    displayHeight = preload.height * scale;
+                    displayWidth = preload.width * scale;
+                } else {
+                    const scale = Math.min(1, 650 / preload.width);
+                    displayWidth = preload.width * scale;
+                    displayHeight = preload.height * scale;
+                }
+
+                const screenW = window.screen.availWidth;
+                const screenH = window.screen.availHeight;
+                const maxLeft = Math.max(0, screenW - displayWidth);
+                const maxTop = Math.max(0, screenH - displayHeight);
+                const randLeft = Math.floor(Math.random() * maxLeft);
+                const randTop = Math.floor(Math.random() * maxTop);
+
+                popup.moveTo(randLeft, randTop);
+                popup.resizeTo(Math.ceil(displayWidth), Math.ceil(displayHeight));
+
+                popup.document.write(`
+                    <!DOCTYPE html>
+                    <html>
+                    <head>
+                        <style>
+                            html, body {
+                                margin: 0;
+                                padding: 0;
+                                background: black;
+                                overflow: hidden;
+                            }
+                            img {
+                                display: block;
+                                width: ${Math.ceil(displayWidth)}px;
+                                height: ${Math.ceil(displayHeight)}px;
+                            }
+                        </style>
+                    </head>
+                    <body>
+                        <img src="${src}" />
+                    </body>
+                    </html>
+                `);
+            };
+
+            preload.onerror = () => {
+                popup.location.href = src;
+            };
+        }
     }
 
-    // Initialize functions
     addEmbedLinks();
     enableImageInteraction();
 });
