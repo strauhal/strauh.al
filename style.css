@@ -10,16 +10,6 @@ body {
     padding-bottom: 56.25%;
 }
 
-.vimeo {
-	z-index: -9;
-	margin-top: -1330px;
-	position: fixed;
-	display: block;
-	width: 75vh;
-	margin-left: 33vw;
-	margin-right: auto;
-}
-
 iframe {
 	width: 80vw;
 	height: 80vh;
@@ -88,14 +78,6 @@ body {
 
 	img {
 		width: 50vw;
-	}
-
-	.banner img {
-		width: 75vw;
-	}
-
-	.vimeo {
-		display: none;
 	}
 
 	p {
