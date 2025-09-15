@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>strauh.al/religious_texts/bible</title>
+    <title>strauh.al/religious_texts/quran</title>
     <!-- Note: The external stylesheet link is commented out as all styles are included below for a single-file solution. -->
     <link rel="stylesheet" href="../style.css">
     <style>
@@ -26,10 +26,6 @@
             width: 100%;
             height: 100%;
             z-index: -1;
-        }
-
-        h1 a:hover {
-            color: #aaa;
         }
 
 
@@ -86,7 +82,7 @@
         #verse-display-panel, #search-panel {
             right: 20px;
         }
-       
+        
         .panel-header {
             display: flex;
             justify-content: space-between;
@@ -136,12 +132,12 @@
         .panel a.active {
             background-color: rgba(255, 255, 255, 0.2);
         }
-       
+        
         .verse-ref-item {
             display: block;
             padding: 2px 10px;
         }
-       
+        
         #verse-display-content .interactive-word {
             display: inline;
             padding: 2px 0;
@@ -152,7 +148,7 @@
         #verse-display-content .interactive-word:hover {
              background-color: rgba(255, 255, 255, 0.25);
         }
-       
+        
         #verse-display-content p {
             padding: 5px;
             line-height: 1.8;
@@ -175,7 +171,7 @@
             outline: none;
             border-radius: 0;
         }
-       
+        
         #search-input::placeholder {
             color: #fff;
             opacity: 1; /* Firefox fix */
@@ -260,7 +256,7 @@
        </div>
        <div id="book-list-content"></div>
    </div>
-   
+    
     <div id="hover-verse-list-panel" class="panel">
         <div class="panel-header">
             <h2 id="hover-title"></h2>
@@ -313,7 +309,7 @@
     </div>
 
     <div id="loader">Processing Quran Data...</div>
-   
+    
     <div id="color-compass">
         <ul>
             <li data-theme="divine"><span style="background-color: #ff0;"></span>theological concepts</li>
@@ -436,12 +432,12 @@
         let connectionLines = {};
         const linesGroup = new THREE.Group();
         scene.add(linesGroup);
-       
+        
         const raycaster = new THREE.Raycaster();
         const mouse = new THREE.Vector2();
         const mouseDownPos = new THREE.Vector2();
         const DRAG_THRESHOLD = 5;
-       
+        
         let frequentWordSet = new Set();
         let allWordsData = new Map(); // For improved search
         let verseLookup = new Map();
@@ -462,7 +458,7 @@
         const searchPanel = document.getElementById('search-panel');
         const searchInput = document.getElementById('search-input');
         const searchResults = document.getElementById('search-results');
-       
+        
         // --- Thematic Word Lists for Coloring (Quranic Themes) ---
         const divineWords = new Set(['allah', 'tawhid', 'islam', 'iman', 'wahy', 'risalah', 'jannah', 'angel', 'revelation', 'spirit', 'holy', 'truth', 'light', 'lord', 'faith', 'prayer', 'merciful', 'guidance']);
         const conflictWords = new Set(['jahannam', 'iblis', 'shaytan', 'pharaoh', 'shirk', 'punishment', 'judgment', 'hell', 'evil', 'sin', 'destroy', 'darkness', 'disbelievers', 'arrogant', 'wrongdoing', 'gog', 'magog']);
@@ -491,7 +487,10 @@
         }
 
         // --- Data ---
-        const surahMap = { 1: "Al-Fatihah", 2: "Al-Baqarah" };
+        const surahMap = {
+            1: "Al-Fatihah", 2: "Al-Baqarah", 3: "Al 'Imran", 4: "An-Nisa", 5: "Al-Ma'idah", 6: "Al-An'am", 7: "Al-A'raf", 8: "Al-Anfal", 9: "At-Tawbah", 10: "Yunus", 11: "Hud", 12: "Yusuf", 13: "Ar-Ra'd", 14: "Ibrahim", 15: "Al-Hijr", 16: "An-Nahl", 17: "Al-Isra", 18: "Al-Kahf", 19: "Maryam", 20: "Ta-Ha", 21: "Al-Anbiya", 22: "Al-Hajj", 23: "Al-Mu'minun", 24: "An-Nur", 25: "Al-Furqan", 26: "Ash-Shu'ara", 27: "An-Naml", 28: "Al-Qasas", 29: "Al-'Ankabut", 30: "Ar-Rum", 31: "Luqman", 32: "As-Sajdah", 33: "Al-Ahzab", 34: "Saba", 35: "Fatir", 36: "Ya-Sin", 37: "As-Saffat", 38: "Sad", 39: "Az-Zumar", 40: "Ghafir", 41: "Fussilat", 42: "Ash-Shura", 43: "Az-Zukhruf", 44: "Ad-Dukhan", 45: "Al-Jathiyah", 46: "Al-Ahqaf", 47: "Muhammad", 48: "Al-Fath", 49: "Al-Hujurat", 50: "Qaf", 51: "Adh-Dhariyat", 52: "At-Tur", 53: "An-Najm", 54: "Al-Qamar", 55: "Ar-Rahman", 56: "Al-Waqi'ah", 57: "Al-Hadid", 58: "Al-Mujadilah", 59: "Al-Hashr", 60: "Al-Mumtahanah", 61: "As-Saff", 62: "Al-Jumu'ah", 63: "Al-Munafiqun", 64: "At-Taghabun", 65: "At-Talaq", 66: "At-Tahrim", 67: "Al-Mulk", 68: "Al-Qalam", 69: "Al-Haqqah", 70: "Al-Ma'arij", 71: "Nuh", 72: "Al-Jinn", 73: "Al-Muzzammil", 74: "Al-Muddaththir", 75: "Al-Qiyamah", 76: "Al-Insan", 77: "Al-Mursalat", 78: "An-Naba", 79: "An-Nazi'at", 80: "'Abasa", 81: "At-Takwir", 82: "Al-Infitar", 83: "Al-Mutaffifin", 84: "Al-Inshiqaq", 85: "Al-Buruj", 86: "At-Tariq", 87: "Al-A'la", 88: "Al-Ghashiyah", 89: "Al-Fajr", 90: "Al-Balad", 91: "Ash-Shams", 92: "Al-Layl", 93: "Ad-Duha", 94: "Ash-Sharh", 95: "At-Tin", 96: "Al-'Alaq", 97: "Al-Qadr", 98: "Al-Bayyinah", 99: "Az-Zalzalah", 100: "Al-'Adiyat", 101: "Al-Qari'ah", 102: "At-Takathur", 103: "Al-'Asr", 104: "Al-Humazah", 105: "Al-Fil", 106: "Quraysh", 107: "Al-Ma'un", 108: "Al-Kawthar", 109: "Al-Kafirun", 110: "An-Nasr", 111: "Al-Masad", 112: "Al-Ikhlas", 113: "Al-Falaq", 114: "An-Nas"
+        };
+        
         const rawQuranData = [
   {
     "surah": 1,
@@ -31670,6 +31669,13 @@
   }
 ];
         
+        // Add placeholders for all surahs to ensure they appear in the list
+        for (let i = 1; i <= 114; i++) {
+            if (!rawQuranData.some(item => item.surah === i)) {
+                rawQuranData.push({ "surah": i, "ayah": 1, "text": `This is Surah ${i}.` });
+            }
+        }
+        
         const quranData = rawQuranData.map(item => {
             let processedText = item.text.toLowerCase().replace(/\ballah\b/g, 'Allah');
             return {
@@ -31742,9 +31748,11 @@
                 'where', 'which', 'while', 'who', 'whom', 'why', 'will', 'with', 'won', 'wouldn', 'you', 'your', 'yours',
                 'yourself', 'yourselves', 'unto', 'said', 'upon', 'hath', 'thee', 'thou', 'thy', 'ye', 'saith', 'indeed'
             ]);
-            const bookOrder = [...new Set(data.map(v => v.book))];
+            
+            const bookOrder = Object.values(surahMap);
 
             data.forEach((verseData, index) => {
+                if (!verseData.book) return; // Skip if surah name is not found
                 const verseRef = `${verseData.book} ${verseData.chapter}:${verseData.verse}`;
                 verseLookup.set(verseRef, verseData.text);
                 const words = Array.from(new Set(verseData.text.toLowerCase().replace(/[^\w\s']/g, '').split(/\s+/))); // Keep apostrophes for possessives
@@ -31769,16 +31777,16 @@
                     }
                 });
             });
-           
+            
             const allProcessedWords = Object.entries(wordData)
                 .map(([word, data]) => ({ word, ...data }));
-           
+            
             allProcessedWords.forEach(w => allWordsData.set(w.word, w));
 
             const guaranteedWords = new Set([...divineWords, ...conflictWords, ...eventWords, ...peopleWords, ...placeWords]);
 
             const topWordsByFrequency = allProcessedWords
-                .filter(word => word.frequency > 0)
+                .filter(word => word.frequency > 1) // Only show words that appear more than once
                 .sort((a, b) => b.frequency - a.frequency)
                 .slice(0, 220);
 
@@ -31790,11 +31798,12 @@
 
             const frequentWords = Array.from(combinedWordsMap.values())
                 .sort((a, b) => a.word.localeCompare(b.word));
-           
+            
             frequentWordSet = new Set(frequentWords.map(d => d.word));
 
             frequentWords.forEach(wordInfo => { coOccurrenceData[wordInfo.word] = {}; });
             data.forEach((verseData) => {
+                if (!verseData.book) return;
                 const wordsInVerse = Array.from(new Set(verseData.text.toLowerCase().replace(/[^\w\s']/g, '').split(/\s+/)))
                     .map(word => getWordRoot(word)) // Stem words here too
                     .filter(word => frequentWordSet.has(word));
@@ -31813,14 +31822,15 @@
             frequentWords.forEach((wordInfo, index) => {
                 const fontSize = 24 + (Math.log1p(wordInfo.frequency) / maxFreq) * 60; // Increased font size scaling
                 const textSprite = makeTextSprite(wordInfo.word, { fontsize: fontSize });
-               
+                
                 const angle = (index / frequentWords.length) * (Math.PI * 6);
-                const firstBookIndex = bookOrder.indexOf(data[wordInfo.firstAppearance].book);
-                const radius = 30 + (firstBookIndex / bookOrder.length) * 100;
+                const firstBookAppearanceIndex = bookOrder.indexOf(data[wordInfo.firstAppearance].book);
+                const radius = 30 + (firstBookAppearanceIndex / bookOrder.length) * 100;
+
                 const x = Math.cos(angle) * radius;
                 const y = Math.log1p(wordInfo.frequency) * 10 + (wordInfo.word.length - 5) * 1.5;
                 const z = Math.sin(angle) * radius;
-               
+                
                 textSprite.position.set(x, y, z);
                 textSprite.userData = { 
                     word: wordInfo.word, 
@@ -31832,7 +31842,7 @@
                 wordLabels.push(textSprite);
                 wordLabelMap.set(wordInfo.word, textSprite);
             });
-           
+            
             // OPTIMIZATION: Only create lines for words that co-occur more than once.
             for (const word1 in coOccurrenceData) {
                 for (const word2 in coOccurrenceData[word1]) {
@@ -31851,42 +31861,42 @@
                     }
                 }
             }
-           
-            bookOrder.forEach(bookName => {
+            
+            Object.entries(surahMap).forEach(([number, name]) => {
                 const bookEl = document.createElement('a');
                 bookEl.href = "#";
-                bookEl.textContent = bookName;
+                bookEl.textContent = `${number}. ${name}`;
                 bookEl.addEventListener('click', (e) => {
                     e.preventDefault();
                     const currentBook = selectedBook;
-                   
+                    
                     // Reset other selections
                     selectedTheme = null;
                     document.querySelectorAll('#color-compass li').forEach(li => li.classList.remove('active'));
                     document.querySelectorAll('#book-list-content a').forEach(a => a.classList.remove('active'));
 
-                    if (currentBook === bookName) {
+                    if (currentBook === name) {
                         selectedBook = null; // Deselect
                         verseListPanel.classList.remove('visible');
                         resetCamera();
                     } else {
-                        selectedBook = bookName; // Select
+                        selectedBook = name; // Select
                         bookEl.classList.add('active'); // Add highlight
-                        showVersesForBook(bookName);
+                        showVersesForBook(name);
                         const labelsToFrame = wordLabels.filter(label => label.userData.books.has(selectedBook));
                         if (labelsToFrame.length > 0) {
                             frameObjects(labelsToFrame);
                         }
                     }
-                   
+                    
                     selectedLabel = null;
                     clickedVerseRef = null;
                     verseDisplayPanel.classList.remove('visible');
-                   
+                    
                     updateVisuals();
                 });
                 bookEl.addEventListener('mouseenter', () => {
-                    hoveredBook = bookName;
+                    hoveredBook = name;
                     updateVisuals();
                 });
                 bookEl.addEventListener('mouseleave', () => {
@@ -31895,7 +31905,7 @@
                 });
                 bookListContent.appendChild(bookEl);
             });
-           
+            
             bookListPanel.classList.add('visible');
             searchPanel.classList.add('visible');
 
@@ -31930,7 +31940,7 @@
                 instructionsPanel.classList.add('collapsed');
                 updateBookListHeight();
             });
-           
+            
             renderer.domElement.addEventListener('mousedown', onMouseDown, false);
             renderer.domElement.addEventListener('mousemove', onMouseMove, false);
             renderer.domElement.addEventListener('mouseup', onMouseUp, false);
@@ -31974,13 +31984,13 @@
                             }
                         }
                     }
-                   
+                    
                     selectedBook = null;
                     selectedLabel = null;
                     clickedVerseRef = null;
                     verseListPanel.classList.remove('visible');
                     verseDisplayPanel.classList.remove('visible');
-                   
+                    
                     updateVisuals();
                 });
 
@@ -31995,7 +32005,7 @@
                 });
             });
         }
-       
+        
         function handleSearch(event) {
             const query = event.target.value.toLowerCase();
             searchResults.innerHTML = '';
@@ -32020,7 +32030,7 @@
                     }
                 }
             }
-           
+            
             const matches = [...matchedRootWords]
                 .sort((a,b) => a.length - b.length)
                 .slice(0, 15);
@@ -32041,7 +32051,7 @@
                         updateVisuals();
                     });
                 }
-               
+                
                 resultEl.addEventListener('click', (e) => {
                     e.preventDefault();
                     if(label) {
@@ -32063,7 +32073,7 @@
             mouseDownPos.x = event.clientX;
             mouseDownPos.y = event.clientY;
         }
-       
+        
         function onMouseMove(event) {
             mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
             mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
@@ -32085,7 +32095,7 @@
                  deselectObject();
             }
         }
-       
+        
         function checkHover() {
             if(document.activeElement === searchInput) return;
 
@@ -32122,7 +32132,7 @@
             searchResults.innerHTML = '';
 
             showVersesForWord(label.userData);
-           
+            
             updateVisuals();
             animateCameraToObject(label);
         }
@@ -32131,11 +32141,11 @@
             verseListTitle.textContent = wordData.word;
             verseListContent.innerHTML = '';
             verseListContent.scrollTop = 0; // Scroll to top for new word
-           
+            
             wordData.verses.forEach(verseRef => {
                 const verseEl = document.createElement('a');
                 verseEl.textContent = verseRef;
-               
+                
                 verseEl.addEventListener('click', (e) => {
                     e.stopPropagation();
                     clickedVerseRef = verseRef;
@@ -32231,6 +32241,10 @@
 
         function displayVerse(verseRef) {
             const verseText = verseLookup.get(verseRef);
+            if (!verseText) {
+                verseDisplayPanel.classList.remove('visible');
+                return;
+            };
             verseDisplayTitle.textContent = verseRef;
             verseDisplayContent.innerHTML = '';
             searchPanel.classList.remove('visible'); // Hide search panel when showing a verse
@@ -32265,7 +32279,7 @@
             verseDisplayContent.appendChild(p);
             verseDisplayPanel.classList.add('visible');
         }
-       
+        
         function getWordsInVerse(verseRef) {
             const words = new Set();
             const text = verseLookup.get(verseRef);
@@ -32297,7 +32311,7 @@
                 }
             });
         }
-       
+        
         function highlightForBook(bookName, isHover = false) {
             const highlightOpacity = isHover ? 0.7 : 0.9;
             const lineOpacity = isHover ? 0.4 : 0.75;
@@ -32349,7 +32363,7 @@
             searchPanel.classList.remove('visible');
             hoverVersePanel.classList.add('visible');
         }
-       
+        
         function hideHoverVerseList() {
              hoverVersePanel.classList.remove('visible');
              if(!selectedLabel && !selectedBook && !selectedTheme) {
@@ -32380,10 +32394,10 @@
                 highlightForBook(hoveredBook, true);
                 return;
             }
-       
+        
             wordLabels.forEach(label => { label.material.opacity = 0.7; });
             Object.values(connectionLines).forEach(line => { line.material.opacity = 0.1; });
-       
+        
             if (selectedLabel) {
                 const selectedWord = selectedLabel.userData.word;
                 wordLabels.forEach(label => { label.material.opacity = 0.15; });
@@ -32393,17 +32407,17 @@
                     if (key.includes(selectedWord)) line.material.opacity = 0.33;
                 });
             }
-           
+            
             if (hoveredLabel) {
                 const hoveredWord = hoveredLabel.userData.word;
                 hoveredLabel.material.opacity = 1.0;
-       
+        
                 if (!selectedLabel) {
                     wordLabels.forEach(label => {
                         if (label !== hoveredLabel) label.material.opacity = 0.2;
                     });
                 }
-               
+                
                 Object.entries(connectionLines).forEach(([key, line]) => {
                     if (key.includes(hoveredWord)) {
                         const isAlsoSelected = selectedLabel && key.includes(selectedLabel.userData.word);
@@ -32429,13 +32443,13 @@
                 .onComplete(() => { controls.enabled = true; })
                 .start();
         }
-       
+        
         function animateCameraToObject(target, duration = 1200) {
             controls.enabled = false;
             const endTarget = (target instanceof THREE.Vector3) ? target : target.position.clone();
             const startPosition = camera.position.clone();
             const startTarget = controls.target.clone();
-           
+            
             const distance = (target instanceof THREE.Vector3) ? camera.position.distanceTo(endTarget) : 30;
             const offset = new THREE.Vector3().subVectors(camera.position, controls.target).normalize().multiplyScalar(distance);
             const endPosition = new THREE.Vector3().addVectors(endTarget, offset);
@@ -32473,7 +32487,7 @@
 
             const direction = new THREE.Vector3().subVectors(camera.position, controls.target).normalize();
             const newCameraPos = center.clone().add(direction.multiplyScalar(distance));
-           
+            
             const startPosition = camera.position.clone();
             const startTarget = controls.target.clone();
 
@@ -32494,7 +32508,7 @@
             checkHover();
             renderer.render(scene, camera);
         }
-       
+        
         window.addEventListener('resize', () => {
             camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
