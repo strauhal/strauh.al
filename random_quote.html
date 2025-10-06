@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>http://strauh.al/random_quote</title>
+    
+    <!-- import the webpage's stylesheet -->
+    <link rel="stylesheet" href="./style.css">
+    
+    <!-- import the webpage's javascript file -->
+    <!-- <script src="script.js" defer></script> -->
+
+
+    <style>
+        body {
+
+        }
+        .quote-text {
+
+        }
+        /* Style for the background image display */
+        #art-container {
+            background-size: 50% 50%;
+            background-position: center;
+            background-repeat: no-repeat;
+
+        }
+    </style>
+
+
+  </head>  
+  <body>
+    <!-- <h1>strauh.al</h1> -->
+    <h1><a href="http://strauh.al">strauh.al</a>/random_quote</h2>
+
+
+    <div class="w-full max-w-4xl">
+        
+        <!-- Container for the image and the quote. Image will be a background. -->
+        <div id="art-container" class="relative bg-gray-800 rounded-lg shadow-2xl overflow-hidden aspect-video flex items-center justify-center">
+            <!-- Image tag is removed. The image will be a background for this container. -->
+            <div id="quote-overlay" class="absolute inset-0 flex items-center justify-center p-8">
+                <p id="quote-text" class="quote-text text-2xl md:text-4xl lg:text-5xl text-center font-semibold text-white leading-tight"></p>
+            </div>
+             <div id="loader" class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+                <svg class="animate-spin h-10 w-10 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+            </div>
+        </div>
+
+        <!-- Button to generate a new image and quote -->
+        <div class="text-center mt-8">
+            <button id="generate-button" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-8 rounded-lg transition-transform transform hover:scale-105 duration-300 shadow-lg">
+                Generate New Inspiration
+            </button>
+        </div>
+    </div>
+
+
+    <!-- Hidden container for the quotes. The script will read from here. -->
+    <div id="quotes-source" class="hidden">
+        <p>The only way to do great work is to love what you do.</p>
+        <p>Strive not to be a success, but rather to be of value.</p>
+        <p>The mind is everything. What you think you become.</p>
+        <p>An unexamined life is not worth living.</p>
+        <p>Your time is limited, so don’t waste it living someone else’s life.</p>
+    </div>
+
+    <script>
+        // --- CONFIGURATION ---
+        // Using a list of actual image URLs from a public source to avoid local path errors.
+        const imageUrls = [
+            'https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?q=80&w=1280&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1536924940846-227afb31e2a5?q=80&w=1280&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1547891654-e66ed7ebb968?q=80&w=1280&auto=format&fit=crop', // <-- Corrected this URL
+            'https://images.unsplash.com/photo-1506806732259-39c2d02a8e78?q=80&w=1280&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1580136579324-422210a2b9b7?q=80&w=1280&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1579965342575-52a4a2c71678?q=80&w=1280&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1599749142279-d29a6136858a?q=80&w=1280&auto=format&fit=crop'
+        ];
+
+        // --- DOM ELEMENTS ---
+        const artContainer = document.getElementById('art-container');
+        const quoteTextElement = document.getElementById('quote-text');
+        const generateButton = document.getElementById('generate-button');
+        const loader = document.getElementById('loader');
+        
+        // --- DYNAMIC DATA (Quotes) ---
+        const quotes = [];
+        // Select all <p> tags from the hidden source div and populate the quotes array
+        const quoteSourceElements = document.querySelectorAll('#quotes-source p');
+        quoteSourceElements.forEach(p => {
+            const text = p.textContent.trim();
+            if (text) {
+                quotes.push(text);
+            }
+        });
+
+        // --- FUNCTIONS ---
+
+        /**
+         * Gets a random item from any given array.
+         * @param {Array} arr - The array to pick from.
+         * @returns {*} A random element from the array.
+         */
+        function getRandomItem(arr) {
+            const randomIndex = Math.floor(Math.random() * arr.length);
+            return arr[randomIndex];
+        }
+
+        /**
+         * Fetches and displays a new random image and quote.
+         */
+        function generateNewInspiration() {
+            if (quotes.length === 0) {
+                quoteTextElement.textContent = `"No quotes found in the document. Add quotes to the #quotes-source div."`;
+                loader.style.display = 'none';
+                return;
+            }
+            // Show loader and hide content while image loads
+            loader.style.display = 'flex';
+            artContainer.style.opacity = '0.5';
+            quoteTextElement.style.opacity = '0';
+            
+            // 1. Get a random quote and display it immediately
+            const randomQuote = getRandomItem(quotes);
+            quoteTextElement.textContent = `"${randomQuote}"`;
+
+            // 2. Get a random image URL from our list
+            const randomImageSrc = getRandomItem(imageUrls);
+            
+            // 3. Create a temporary image object to preload the image
+            const tempImg = new Image();
+            tempImg.src = randomImageSrc;
+            
+            // 4. Once the new image is loaded, update the display
+            tempImg.onload = () => {
+                artContainer.style.backgroundImage = `url('${tempImg.src}')`;
+                
+                // Fade in the new image and quote
+                artContainer.style.opacity = '1';
+                quoteTextElement.style.opacity = '1';
+                loader.style.display = 'none';
+            };
+            
+            // Handle cases where the image fails to load by trying again
+            tempImg.onerror = () => {
+                console.error("Failed to load image, trying another:", randomImageSrc);
+                // Silently try again with a new image and quote
+                generateNewInspiration();
+            }
+        }
+
+        // --- EVENT LISTENERS ---
+        generateButton.addEventListener('click', generateNewInspiration);
+
+        // --- INITIAL LOAD ---
+        // Generate the first inspiration when the window loads
+        window.addEventListener('load', generateNewInspiration);
+
+    </script>
+
+  </body>
+</html>
