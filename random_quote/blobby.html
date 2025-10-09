@@ -3,40 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>http://strauh.al/random_quote</title>
+    <title>http://strauh.al/random_quote/blobby</title>
 
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="../style.css">
 
     <style>
 
-        body {
-            overflow-y: none;
-        }
-
-        .content-container {
-            position: fixed;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 100vw;
-            height: 100vh;
-        }
-
         p {
+            background-color: #00f;
             line-height: 2;
-        }
-
-        #background-image {
-            position: fixed;
-            z-index: -5;
-            width: 80%;
-            height: 80%;
-            margin-top: -8%;
-            object-fit: contain; /* Keeps the image's aspect ratio */
-            z-index: 1; /* Places it behind the quote */
-        }
-
-        #quote-display {
+            font-style: italic;
+            max-width: 33vw;
             position: fixed; /* Allows z-index to work */
             z-index: 2; /* Places it on top of the image */
             font-style: italic;
@@ -44,32 +21,113 @@
             max-width: 45%; /* To keep text roughly within the image bounds */
             background-color: #00f;
         }
-
-        .blobby {
-            z-index: 2;
-            position: fixed; /* Allows z-index to work */;
-
+        
+        /* New container to center the art wrapper */
+        .main-container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
+        /* New wrapper for the art and quote, sized to 50% */
+        .art-wrapper {
+            position: relative;
+            margin-top: -12vh;
+            width: 66vw;
+            height: 66vh;
+        }
+
+        #interactive-canvas { 
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%;
+            z-index: 1; 
+            cursor: pointer; 
+        }
+
+        .quote-container { 
+            position: fixed; 
+            z-index: 2; 
+            /*margin-left: -20vw;*/
+            margin-top: 20vh;
+            pointer-events: none; 
+        }
+
+
+
+        #fallback-image { 
+            position: absolute; 
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain; 
+            z-index: 1; 
+            display: none; 
+        }
+
+        h1 { 
+
+            z-index: 3; 
+        }
     </style>
 </head>
 <body>
-
-<h1><a href="http://strauh.al">strauh.al</a>/random_quote</h1>
-
-    <div class="content-container">
-        <!-- The image will appear here -->
-        <img id="background-image" src="" alt="Random art">
-        
-        <!-- The quote will appear here -->
-        <p id="quote-display"></p>
+    <h1><a href="http://strauh.al">strauh.al</a>/<a href="https://strauh.al/random_quote">random_quote</a>/blobby</h1>
+    <div class="main-container">
+        <div class="art-wrapper">
+            <canvas id="interactive-canvas"></canvas>
+            <img id="fallback-image" src="" alt="Random art">
+            <div class="quote-container"><p id="quote-display"></p></div>
+        </div>
     </div>
 
-    <div class="blobby"><p><a href="https://strauh.al/random_quote/blobby">enable blobby mode</a></p></div>
-
     <script>
-        // --- DATA ---
-        
+        const canvas = document.getElementById('interactive-canvas');
+        const isCanvasSupported = !!(canvas.getContext && canvas.getContext('2d'));
+
+        if (!isCanvasSupported) {
+            document.addEventListener('DOMContentLoaded', () => {
+                document.querySelector('.art-wrapper').style.width = '100vw';
+                document.querySelector('.art-wrapper').style.height = '100vh';
+                document.getElementById('interactive-canvas').style.display = 'none';
+                const fallbackImage = document.getElementById('fallback-image');
+                fallbackImage.style.display = 'block';
+                
+                const imageUrls = [ "https://strauh.al/more_fine_art/toppan2.png", "https://strauh.al/more_fine_art/tumblr_084aeb22760ef39d3a5658ce441cd4cf_2d7b8dbc_1280.jpg", "https://strauh.al/more_fine_art/tumblr_10946cbeaef57c034b2aaf9865fba4d7_4468aeb1_1280.jpg", "https://strauh.al/more_fine_art/tumblr_4f7e30e0e7e26748b14d28c33e9333a2_88713fa8_1280.jpg", "https://strauh.al/more_fine_art/tumblr_6ffb5c4323ddffb4f3247915fe8d8176_2859fb2b_1280.jpg", "https://strauh.al/more_fine_art/tumblr_7656584befc57e3f25593b094f9af13a_04eb02f9_2048.jpg", "https://strauh.al/more_fine_art/tumblr_989687c381cdd655b835f3ab471c8494_33cf1a38_1280.jpg", "https://strauh.al/more_fine_art/tumblr_9b0de624b23f05c03c0ac80a47dc3f96_b7a31d49_640.jpg", "https://strauh.al/more_fine_art/tumblr_a60d63bfd2f53ce3ffc9f92f0fcfb9f3_65597114_1280.jpg", "https://strauh.al/more_fine_art/tumblr_d0af9aa85cf565ea6597e267bfd326d2_e0feda99_540.jpg", "https://strauh.al/more_fine_art/tumblr_d55d2c72373381a2e349907c5650ca50_c21902dd_640.jpg", "https://strauh.al/more_fine_art/yoji-shinkawa-the-art-director-of-metal-gear-solid-6-sabukaru.jpeg" ];
+                const quotes = [
+                    {"id": 1, "quote": "\"about neither concept nor beauty—instead relying on application, context and frequency to communicate their desire\""},
+                    {"id": 2, "quote": "\"If you are inspired by people who are still alive, you are aiming too low and you're not going to reach very far. You need to reach into the ancient, ancient past to make media to make an impression on the world that will last into the future\""},
+                    {"id": 3, "quote": "\"This is not a hysteria of the painter, but a hysteria of painting. With painting, hysteria becomes art. Or rather, with the painter, hysteria becomes painting. (action lends itself to form)\""},
+                ];
+
+                const randomQuoteObject = quotes[Math.floor(Math.random() * quotes.length)];
+                
+                fallbackImage.src = imageUrls[Math.floor(Math.random() * imageUrls.length)];
+                document.getElementById('quote-display').textContent = randomQuoteObject.quote;
+            });
+        } else {
+            const ctx = canvas.getContext('2d');
+            const quoteElement = document.getElementById('quote-display');
+
+            const TILE_SIZE = 3;
+            const AIR_FRICTION = 0.96;
+            const SPRING_FACTOR = 0.025;
+            const GRAVITY = 0.03;
+            const HOVER_RADIUS = 80;
+            const HOVER_DISPLACEMENT_STRENGTH = 2;
+            const CURSOR_LAG = 0.15;
+            const SHOCKWAVE_SPEED = 10;
+            const SHOCKWAVE_FALLOFF = 0.98;
+            const SHOCKWAVE_WIDTH = 20;
+            const NOISE_SCALE = 0.003; 
+            const NOISE_SPEED = 0.1;   
+            const NOISE_STRENGTH = 0.1;
+ 
         // Add your image links to this array.
         const imageUrls = [
 "https://strauh.al/more_fine_art/1688851363106713.jpg",
@@ -524,7 +582,7 @@
 
         ];
 
-        // The quotes are in the specified object format.
+// The quotes are in the specified object format.
         const quotes = [
   {
     "id": 1,
@@ -1532,41 +1590,48 @@
   }
 ];
 
-        /**
-         * Gets a random item from any given array.
-         * @param {Array} arr - The array to pick from.
-         * @returns {*} A random element from the array.
-         */
-        function getRandomItem(arr) {
-            if (!arr || arr.length === 0) return null;
-            const randomIndex = Math.floor(Math.random() * arr.length);
-            return arr[randomIndex];
+
+            let particles = [], shockwaves = [];
+            let canvasWidth = 0, canvasHeight = 0, time = 0;
+            let isDragging = false, mouseMoved = false;
+            let actualMouseX = -1000, actualMouseY = -1000;
+            let lerpedMouseX = -1000, lerpedMouseY = -1000, lerpedMouseVX = 0, lerpedMouseVY = 0;
+            let canvasRect;
+
+            const GRID_CELL_SIZE = 100;
+            let grid, gridCols, gridRows;
+
+            const perlin={p:new Uint8Array(512),init:function(){const p=[151,160,137,91,90,15,131,13,201,95,96,53,194,233,7,225,140,36,103,30,69,142,8,99,37,240,21,10,23,190,6,148,247,120,234,75,0,26,197,62,94,252,219,203,117,35,11,32,57,177,33,88,237,149,56,87,174,20,125,136,171,168,68,175,74,165,71,134,139,48,27,166,77,146,158,231,83,111,229,122,60,211,133,230,220,105,92,41,55,46,245,40,244,102,143,54,65,25,63,161,1,216,80,73,209,76,132,187,208,89,18,169,200,196,135,130,116,188,159,86,164,100,109,198,173,186,3,64,52,217,226,250,124,123,5,202,38,147,118,126,255,82,85,212,207,206,59,227,47,16,58,17,182,189,28,42,223,183,170,213,119,248,152,2,44,154,163,70,221,153,101,155,167,43,172,9,129,22,39,253,19,98,108,110,79,113,224,232,178,185,112,104,218,246,97,228,251,34,242,193,238,210,144,12,191,179,162,241,81,51,145,235,249,14,239,107,49,192,214,31,181,199,106,157,184,84,204,176,115,121,50,45,127,4,150,254,138,236,205,93,222,114,67,29,24,72,243,141,128,195,78,66,215,61,156,180];for(let i=0;i<256;i++)this.p[i]=this.p[i+256]=p[i]},noise:function(x,y,z){let xi=Math.floor(x)&255,yi=Math.floor(y)&255,zi=Math.floor(z)&255;let xf=x-Math.floor(x),yf=y-Math.floor(y),zf=z-Math.floor(z);let u=this.fade(xf),v=this.fade(yf),w=this.fade(zf);let A=this.p[xi]+yi,AA=this.p[A]+zi,AB=this.p[A+1]+zi,B=this.p[xi+1]+yi,BA=this.p[B]+zi,BB=this.p[B+1]+zi;return this.scale(this.lerp(w,this.lerp(v,this.lerp(u,this.grad(this.p[AA],xf,yf,zf),this.grad(this.p[BA],xf-1,yf,zf)),this.lerp(u,this.grad(this.p[AB],xf,yf-1,zf),this.grad(this.p[BB],xf-1,yf-1,zf))),this.lerp(v,this.lerp(u,this.grad(this.p[AA+1],xf,yf,zf-1),this.grad(this.p[BA+1],xf-1,yf,zf-1)),this.lerp(u,this.grad(this.p[AB+1],xf,yf-1,zf-1),this.grad(this.p[BB+1],xf-1,yf-1,zf-1)))));},fade:t=>t*t*t*(t*(t*6-15)+10),lerp:(t,a,b)=>a+t*(b-a),grad:(h,x,y,z)=>{let u=h<8?x:y,v=h<4?y:h==12||h==14?x:z;return((h&1)==0?u:-u)+((h&2)==0?v:-v);},scale:n=>(1+n)/2};
+            perlin.init();
+
+            class Particle{constructor(x,y,c){this.originX=x;this.originY=y;this.x=x;this.y=y;this.vx=0;this.vy=0;this.color=c}update(){const nX=perlin.noise(this.originX*NOISE_SCALE,this.originY*NOISE_SCALE,time)-.5,nY=perlin.noise(this.originX*NOISE_SCALE+400,this.originY*NOISE_SCALE+400,time)-.5;this.vx+=nX*NOISE_STRENGTH;this.vy+=nY*NOISE_STRENGTH;this.vy+=GRAVITY;this.vx+=(this.originX-this.x)*SPRING_FACTOR;this.vy+=(this.originY-this.y)*SPRING_FACTOR;this.vx*=AIR_FRICTION;this.vy*=AIR_FRICTION;this.x+=this.vx;this.y+=this.vy}}
+            class Shockwave{constructor(x,y){this.x=x;this.y=y;this.radius=0;this.strength=2;this.type=Math.floor(Math.random()*3);this.flickAngle=Math.random()*Math.PI*2}update(){this.radius+=SHOCKWAVE_SPEED;this.strength*=SHOCKWAVE_FALLOFF;const c=getCellsInRadius(this.x,this.y,this.radius+SHOCKWAVE_WIDTH);c.forEach(C=>C.forEach(p=>{const d=Math.abs(Math.sqrt((p.x-this.x)**2+(p.y-this.y)**2)-this.radius);if(d<SHOCKWAVE_WIDTH){const a=Math.atan2(p.y-this.y,p.x-this.x),f=this.strength*((SHOCKWAVE_WIDTH-d)/SHOCKWAVE_WIDTH);switch(this.type){case 0:p.vx+=Math.cos(a)*f;p.vy+=Math.sin(a)*f;break;case 1:p.vx+=Math.sin(a)*f;p.vy-=Math.cos(a)*f;break;case 2:p.vx+=Math.cos(this.flickAngle)*f;p.vy+=Math.sin(this.flickAngle)*f;break;}}}))}}
+
+            function initialize(){
+                const artWrapper = document.querySelector('.art-wrapper');
+                canvasWidth=artWrapper.clientWidth;canvasHeight=artWrapper.clientHeight;
+                canvas.width=canvasWidth;canvas.height=canvasHeight;
+                canvasRect = canvas.getBoundingClientRect();
+                gridCols=Math.ceil(canvasWidth/GRID_CELL_SIZE);gridRows=Math.ceil(canvasHeight/GRID_CELL_SIZE);grid=new Array(gridCols*gridRows).fill(null).map(()=>[]);
+                const rI=getRandomItem(imageUrls),i=new Image();i.crossOrigin="Anonymous";i.src=rI;
+                i.onload=()=>createParticlesFromImage(i);i.onerror=()=>{console.error("Failed to load image:",rI);initialize();};
+                const rQ=getRandomItem(quotes);if(quoteElement&&rQ){quoteElement.textContent=rQ.quote}
+            }
+            function createParticlesFromImage(i){particles=[];const iAR=i.width/i.height,cAR=canvasWidth/canvasHeight;let dW,dH,oX,oY;if(iAR>cAR){dW=canvasWidth;dH=canvasWidth/iAR}else{dH=canvasHeight;dW=canvasHeight*iAR}oX=(canvasWidth-dW)/2;oY=(canvasHeight-dH)/2;const tC=document.createElement('canvas'),tX=tC.getContext('2d');tC.width=canvasWidth;tC.height=canvasHeight;tX.drawImage(i,oX,oY,dW,dH);const iD=tX.getImageData(0,0,canvasWidth,canvasHeight).data;for(let y=0;y<canvasHeight;y+=TILE_SIZE){for(let x=0;x<canvasWidth;x+=TILE_SIZE){const idx=(y*canvasWidth+x)*4;if(iD[idx+3]>128){const c=`rgb(${iD[idx]},${iD[idx+1]},${iD[idx+2]})`;particles.push(new Particle(x,y,c))}}}}
+
+            function animate(){ctx.clearRect(0,0,canvasWidth,canvasHeight);for(let i=0;i<grid.length;i++)grid[i]=[];for(const p of particles){const cX=Math.floor(p.x/GRID_CELL_SIZE),cY=Math.floor(p.y/GRID_CELL_SIZE);if(cX>=0&&cX<gridCols&&cY>=0&&cY<gridRows){grid[cY*gridCols+cX].push(p)}};shockwaves.forEach((s,i)=>{s.update();if(s.strength<0.05)shockwaves.splice(i,1)});const hC=getCellsInRadius(lerpedMouseX,lerpedMouseY,HOVER_RADIUS);hC.forEach(c=>c.forEach(p=>{const dX=p.x-lerpedMouseX,dY=p.y-lerpedMouseY,dist=Math.sqrt(dX*dX+dY*dY);if(dist<HOVER_RADIUS){const f=(HOVER_RADIUS-dist)/HOVER_RADIUS,a=Math.atan2(dY,dX),d=Math.pow(f,2)*HOVER_DISPLACEMENT_STRENGTH;p.vx+=Math.cos(a)*d*0.1;p.vy+=Math.sin(a)*d*0.1}}));particles.forEach(p=>{p.update();let dX=p.x,dY=p.y;const mdX=p.x-lerpedMouseX,mdY=p.y-lerpedMouseY,dist=Math.sqrt(mdX*mdX+mdY*mdY);if(dist<HOVER_RADIUS){const f=Math.pow((HOVER_RADIUS-dist)/HOVER_RADIUS,2);dX+=lerpedMouseVX*f*2.0;dY+=lerpedMouseVY*f*2.0}ctx.fillStyle=p.color;ctx.fillRect(Math.round(dX),Math.round(dY),TILE_SIZE,TILE_SIZE)});time+=NOISE_SPEED*0.1;const pLMX=lerpedMouseX,pLMY=lerpedMouseY;if(lerpedMouseX===-1000){lerpedMouseX=actualMouseX;lerpedMouseY=actualMouseY}
+            lerpedMouseX+=(actualMouseX-lerpedMouseX)*CURSOR_LAG;lerpedMouseY+=(actualMouseY-lerpedMouseY)*CURSOR_LAG;lerpedMouseVX=lerpedMouseX-pLMX;lerpedMouseVY=lerpedMouseY-pLMY;requestAnimationFrame(animate)}
+            function getCellsInRadius(x,y,r){const c=[];const sC=Math.max(0,Math.floor((x-r)/GRID_CELL_SIZE)),eC=Math.min(gridCols-1,Math.floor((x+r)/GRID_CELL_SIZE)),sR=Math.max(0,Math.floor((y-r)/GRID_CELL_SIZE)),eR=Math.min(gridRows-1,Math.floor((y+r)/GRID_CELL_SIZE));for(let ro=sR;ro<=eR;ro++){for(let co=sC;co<=eC;co++){c.push(grid[ro*gridCols+co])}}return c}
+            function getRandomItem(a){return a[Math.floor(Math.random()*a.length)]}
+            
+            canvas.addEventListener('mousedown',e=>{isDragging=true;mouseMoved=false});
+            canvas.addEventListener('mousemove',e=>{if(!canvasRect) return; actualMouseX=e.clientX-canvasRect.left;actualMouseY=e.clientY-canvasRect.top;if(isDragging)mouseMoved=true});
+            canvas.addEventListener('mouseup',e=>{isDragging=false;if(!mouseMoved){if(!canvasRect)return;const cX=e.clientX-canvasRect.left;const cY=e.clientY-canvasRect.top;shockwaves.push(new Shockwave(cX,cY))}});
+            window.addEventListener('resize',initialize);
+            
+            initialize();
+            animate();
         }
-
-        // --- INITIAL LOAD ---
-        // This function runs when the page has finished loading.
-        window.addEventListener('load', () => {
-            // Get the DOM elements
-            const imageElement = document.getElementById('background-image');
-            const quoteElement = document.getElementById('quote-display');
-
-            // Select a random image URL and a random quote object
-            const randomImageUrl = getRandomItem(imageUrls);
-            const randomQuoteObject = getRandomItem(quotes);
-
-            // Update the page content
-            if (imageElement && randomImageUrl) {
-                imageElement.src = randomImageUrl;
-                imageElement.onerror = () => {
-                    console.error("Failed to load image:", randomImageUrl);
-                };
-            }
-            // Check if a quote object was successfully retrieved
-            if (quoteElement && randomQuoteObject) {
-                // Access the 'quote' property of the object
-                quoteElement.textContent = randomQuoteObject.quote;
-            }
-        });
     </script>
 </body>
 </html>
